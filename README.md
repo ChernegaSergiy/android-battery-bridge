@@ -21,14 +21,17 @@ Broadcast Intent: `com.chernegasergiy.battery.GET_STATUS` with extra `remote_por
 
 Response JSON:
 ```json
-{"l":85,"c":true,"s":"charging"}
+{"l":85,"c":1,"h":1,"t":25,"v":4200,"tech":"Li-ion"}
 ```
 
 | Field | Description |
 |-------|-------------|
 | `l` | Battery level (0-100) |
-| `c` | Charging status (true/false) |
-| `s` | Status string ("charging"/"discharging") |
+| `c` | Charging status (1/0) |
+| `h` | Health status |
+| `t` | Temperature (tenths of degree Celsius) |
+| `v` | Voltage (mV) |
+| `tech` | Battery technology string |
 
 ## Building
 
