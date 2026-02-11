@@ -2,7 +2,7 @@
 
 [![Build APK](https://github.com/ChernegaSergiy/android-battery-bridge/actions/workflows/build.yml/badge.svg)](https://github.com/ChernegaSergiy/android-battery-bridge/actions/workflows/build.yml)
 
-Android application that provides battery data to PHP extensions via IPC.
+A specialized Android application that exposes real-time battery information to PHP extensions via IPC. It implements a Reverse Socket Bridge pattern where PHP creates a local socket server and receives battery data (level, charging status, health, temperature, voltage, technology) in JSON format. This bridge is designed for PHP applications running on Android that need to monitor or react to battery state changes.
 
 ## Architecture
 
