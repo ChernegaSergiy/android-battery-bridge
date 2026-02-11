@@ -1,24 +1,38 @@
-# BatteryJNI
+# PHP Battery Bridge (Android)
 
-Android application that provides battery data via JNI for use by PHP extensions.
+Android application that provides battery data to PHP extensions via IPC.
 
-## Purpose
+## Architecture
 
-This Android app runs as a service and exposes battery information through JNI,
-allowing PHP extensions to obtain battery data on Android devices where SELinux
-policies would otherwise block direct access.
+This implements a "Reverse Socket Bridge" pattern (Termux-style):
 
-## Requirements
+1. **PHP creates a local socket server** (127.0.0.1 only)
+2. **PHP broadcasts Intent** with the port number
+3. **Android BroadcastReceiver** receives the intent, reads battery data, and sends JSON back
 
-- Android Studio (for development)
-- Android NDK
-- Android SDK 24+
-- Target SDK 34+
+## Components
+
+- **MainActivity** - Minimal UI to register the app in launcher
+- **BatteryReceiver** - Receives broadcasts and returns battery data via socket
+
+## IPC Protocol
+
+Broadcast Intent: `com.chernegasergiy.battery.GET_STATUS` with extra `remote_port`
+
+Response JSON:
+```json
+{"l":85,"c":true,"s":"charging"}
+```
+
+| Field | Description |
+|-------|-------------|
+| `l` | Battery level (0-100) |
+| `c` | Charging status (true/false) |
+| `s` | Status string ("charging"/"discharging") |
 
 ## Building
 
-1. Open in Android Studio
-2. Build -> Make Project
+Open in Android Studio and build.
 
 ## License
 
