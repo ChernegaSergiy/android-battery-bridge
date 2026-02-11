@@ -15,8 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="PHP Battery Bridge"
-            app:titleTextColor="?attr/colorOnPrimary"
+            app:title=""
             android:background="?attr/colorPrimary" />
 
     </com.google.android.material.appbar.AppBarLayout>
