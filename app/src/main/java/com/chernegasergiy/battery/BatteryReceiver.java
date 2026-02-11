@@ -16,21 +16,22 @@ public class BatteryReceiver extends BroadcastReceiver {
         final PendingResult pendingResult = goAsync();
 
         BatteryManager bm = (BatteryManager) context.getSystemService(Context.BATTERY_SERVICE);
-        int level = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-        int status = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_STATUS);
+        int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, 100);
+        int batteryPct = level * 100 / scale;
 
+        int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
         boolean isCharging = (status == BatteryManager.BATTERY_STATUS_CHARGING ||
                               status == BatteryManager.BATTERY_STATUS_FULL);
 
-        int health = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_HEALTH);
-        int temperature = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_TEMPERATURE);
-        int voltage = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_VOLTAGE);
-        String technology = bm.getTechnology();
+        int health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
+        int temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
+        int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
+        String technology = intent.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY);
 
-        String statusStr = isCharging ? "charging" : "discharging";
         String jsonResponse = String.format(
             "{\"l\":%d,\"c\":%d,\"h\":%d,\"t\":%d,\"v\":%d,\"tech\":\"%s\"}",
-            level, isCharging ? 1 : 0, health, temperature, voltage, technology
+            batteryPct, isCharging ? 1 : 0, health, temperature / 10, voltage, technology != null ? technology : ""
         );
 
         new Thread(() -> {
