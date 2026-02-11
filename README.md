@@ -43,7 +43,7 @@ Response JSON:
 ### Build APK
 
 ```sh
-cd android-battery-jni
+cd android-battery-bridge
 
 # Using Gradle wrapper (recommended)
 ./gradlew assembleDebug
