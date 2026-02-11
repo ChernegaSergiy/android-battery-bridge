@@ -32,7 +32,34 @@ Response JSON:
 
 ## Building
 
-Open in Android Studio and build.
+### Prerequisites
+
+- Android SDK (ANDROID_HOME)
+- Gradle (optional, wrapper included)
+
+### Build APK
+
+```sh
+cd android-battery-jni
+
+# Using Gradle wrapper (recommended)
+./gradlew assembleDebug
+
+# Or using system Gradle
+gradle assembleDebug
+```
+
+APK will be at: `app/build/outputs/apk/debug/app-debug.apk`
+
+### Install on Device
+
+```sh
+adb install app/build/outputs/apk/debug/app-debug.apk
+```
+
+## Usage
+
+After installing the APK, open the app once to register it in the launcher. The app will listen for broadcasts from PHP extensions.
 
 ## License
 
