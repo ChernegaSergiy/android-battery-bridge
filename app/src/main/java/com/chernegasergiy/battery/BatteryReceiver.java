@@ -22,7 +22,9 @@ public class BatteryReceiver extends BroadcastReceiver {
         boolean isCharging = (status == BatteryManager.BATTERY_STATUS_CHARGING ||
                               status == BatteryManager.BATTERY_STATUS_FULL);
 
-        String jsonResponse = String.format("{\"l\":%d,\"c\":%d}", level, isCharging ? 1 : 0);
+        String statusStr = isCharging ? "charging" : "discharging";
+        String jsonResponse = String.format("{\"l\":%d,\"c\":%s,\"s\":\"%s\"}",
+            level, isCharging ? "true" : "false", statusStr);
 
         new Thread(() -> {
             try {
