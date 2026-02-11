@@ -4,14 +4,23 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
+import android.util.Log;
 import java.io.PrintWriter;
 import java.net.Socket;
 
 public class BatteryReceiver extends BroadcastReceiver {
+    private static final String TAG = "BatteryReceiver";
+
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.d(TAG, "onReceive called");
         int port = intent.getIntExtra("remote_port", -1);
-        if (port == -1) return;
+        Log.d(TAG, "port=" + port);
+
+        if (port == -1) {
+            Log.e(TAG, "No port in intent");
+            return;
+        }
 
         final PendingResult pendingResult = goAsync();
 
@@ -29,20 +38,26 @@ public class BatteryReceiver extends BroadcastReceiver {
         int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
         String technology = intent.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY);
 
+        Log.d(TAG, "level=" + batteryPct + ", charging=" + isCharging);
+
         String jsonResponse = String.format(
             "{\"l\":%d,\"c\":%d,\"h\":%d,\"t\":%d,\"v\":%d,\"tech\":\"%s\"}",
             batteryPct, isCharging ? 1 : 0, health, temperature / 10, voltage, technology != null ? technology : ""
         );
 
+        Log.d(TAG, "Sending: " + jsonResponse);
+
         new Thread(() -> {
             try {
-                Thread.sleep(50);
+                Thread.sleep(100);
+                Log.d(TAG, "Connecting to 127.0.0.1:" + port);
                 try (Socket socket = new Socket("127.0.0.1", port);
                      PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
                     out.print(jsonResponse);
+                    Log.d(TAG, "Data sent successfully");
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(TAG, "Error sending data", e);
             } finally {
                 pendingResult.finish();
             }
