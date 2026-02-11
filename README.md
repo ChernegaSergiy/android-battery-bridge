@@ -1,5 +1,7 @@
 # PHP Battery Bridge (Android)
 
+[![Build APK](https://github.com/ChernegaSergiy/android-battery-bridge/actions/workflows/build.yml/badge.svg)](https://github.com/ChernegaSergiy/android-battery-bridge/actions/workflows/build.yml)
+
 Android application that provides battery data to PHP extensions via IPC.
 
 ## Architecture
