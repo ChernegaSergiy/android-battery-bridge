@@ -60,27 +60,10 @@ public class MainActivity extends Activity {
         }
         
         boolean listenAll = prefs.getBoolean("pref_network_all", false);
-        String ip = listenAll ? getLocalIpAddress() : "127.0.0.1";
+        String ip = listenAll ? com.chernegasergiy.battery.utils.NetworkUtils.getLocalIpAddress() : "127.0.0.1";
         
         android.widget.TextView tvInfo = findViewById(R.id.tvInfo);
         tvInfo.setText(getString(R.string.main_info_server, ip, port));
-    }
-
-    private String getLocalIpAddress() {
-        try {
-            for (java.util.Enumeration<java.net.NetworkInterface> en = java.net.NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
-                java.net.NetworkInterface intf = en.nextElement();
-                for (java.util.Enumeration<java.net.InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
-                    java.net.InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof java.net.Inet4Address) {
-                        return inetAddress.getHostAddress();
-                    }
-                }
-            }
-        } catch (Exception ex) {
-            // ignore
-        }
-        return "0.0.0.0";
     }
 
     @Override
