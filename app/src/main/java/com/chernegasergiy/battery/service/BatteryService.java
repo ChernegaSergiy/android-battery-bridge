@@ -173,7 +173,11 @@ public class BatteryService extends Service implements TcpServer.Listener {
 
     @Override
     public String onRequestData() {
-        return batteryDataProvider.getBatteryDataJson();
+        com.chernegasergiy.battery.data.BatteryInfo info = batteryDataProvider.getBatteryInfo();
+        return String.format(java.util.Locale.US,
+            "{\"l\":%d,\"c\":%d,\"h\":%d,\"t\":%.0f,\"v\":%d,\"tech\":\"%s\"}",
+            info.percent, info.isCharging ? 1 : 0, info.health, info.temperatureCelsius * 10.0f, info.voltage, info.technology != null ? info.technology : ""
+        );
     }
 
     @Override
