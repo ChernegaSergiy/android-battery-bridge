@@ -10,7 +10,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PHP Battery Bridge is active"
+        android:text="@string/main_title_active"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="The TCP server is running on 127.0.0.1:8765.\nYou can now close this app."
+        android:text="@string/main_info_server"
         android:textSize="14sp" />
 
 </LinearLayout>
