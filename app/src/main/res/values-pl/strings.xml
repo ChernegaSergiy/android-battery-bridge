@@ -19,6 +19,8 @@
     <string name="toast_client_connected">Klient połączony: %s</string>
     <string name="main_title_active">PHP Battery Bridge jest aktywny</string>
     <string name="main_info_server">Serwer TCP jest uruchomiony na %1$s:%2$d.\nMożesz teraz zamknąć tę aplikację.</string>
+    <string name="btn_restart_server">Uruchom ponownie serwer</string>
+    <string name="main_title_stopped">Serwer został zatrzymany</string>
     
     <string name="menu_about">O programie</string>
     <string name="menu_settings">Ustawienia</string>
