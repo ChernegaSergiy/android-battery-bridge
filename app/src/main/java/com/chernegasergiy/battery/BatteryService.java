@@ -2,7 +2,9 @@ package com.chernegasergiy.battery;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -34,10 +36,19 @@ public class BatteryService extends Service {
             return;
         }
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int port = PORT;
+        try {
+            port = Integer.parseInt(prefs.getString("pref_port", String.valueOf(PORT)));
+        } catch (NumberFormatException e) {
+            Log.e(TAG, "Invalid port format, using default", e);
+        }
+
+        final int finalPort = port;
         listenerThread = new Thread(() -> {
             try {
-                Log.d(TAG, "Opening ServerSocket on port " + PORT);
-                try (ServerSocket server = new ServerSocket(PORT, 50, InetAddress.getByName("127.0.0.1"))) {
+                Log.d(TAG, "Opening ServerSocket on port " + finalPort);
+                try (ServerSocket server = new ServerSocket(finalPort, 50, InetAddress.getByName("127.0.0.1"))) {
                     while (running) {
                         try (Socket client = server.accept()) {
                             Log.d(TAG, "Client connected");
