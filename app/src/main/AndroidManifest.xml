@@ -21,8 +21,6 @@
 
         <service android:name=".BatteryService" android:exported="false" />
 
-        <receiver android:name=".BatteryReceiver" android:exported="false" />
-
     </application>
 
 </manifest>
