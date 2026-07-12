@@ -32,8 +32,13 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "Service created");
-        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
+        settings = new com.chernegasergiy.battery.data.SettingsRepository(this);
+        batteryDataProvider = new com.chernegasergiy.battery.data.BatteryDataProvider(this);
+        settings.registerChangeListener(this);
     }
+    
+    private com.chernegasergiy.battery.data.SettingsRepository settings;
+    private com.chernegasergiy.battery.data.BatteryDataProvider batteryDataProvider;
     
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -46,8 +51,7 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
     }
 
     private void updateForegroundState() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.getBoolean("pref_foreground", false)) {
+        if (settings.isForegroundEnabled()) {
             NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationChannel channel = new NotificationChannel(CHANNEL_ID, getString(R.string.notif_channel_name), NotificationManager.IMPORTANCE_LOW);
@@ -98,16 +102,9 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
     private void startListener() {
         stopListener();
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        int port = PORT;
-        try {
-            port = Integer.parseInt(prefs.getString("pref_port", String.valueOf(PORT)));
-        } catch (NumberFormatException e) {
-            Log.e(TAG, "Invalid port format, using default", e);
-        }
-
-        final int finalPort = port;
-        final boolean allInterfaces = prefs.getBoolean("pref_network_all", false);
+        final int finalPort = settings.getPort();
+        final boolean allInterfaces = settings.isListenAllInterfaces();
+        final boolean debugToasts = settings.isDebugToastsEnabled();
         
         listenerThread = new Thread(() -> {
             try {
@@ -124,14 +121,14 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
                         try (Socket client = server.accept()) {
                             Log.d(TAG, "Client connected: " + client.getInetAddress().getHostAddress());
                             
-                            if (prefs.getBoolean("pref_debug_toasts", false)) {
+                            if (debugToasts) {
                                 final String clientIp = client.getInetAddress().getHostAddress();
                                 new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
                                     android.widget.Toast.makeText(BatteryService.this, getString(R.string.toast_client_connected, clientIp), android.widget.Toast.LENGTH_SHORT).show();
                                 });
                             }
 
-                            String batteryData = getBatteryData();
+                            String batteryData = batteryDataProvider.getBatteryDataJson();
                             PrintWriter pw = new PrintWriter(client.getOutputStream(), true);
                             pw.print(batteryData);
                             pw.flush();
@@ -151,35 +148,12 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
         listenerThread.start();
     }
 
-    private String getBatteryData() {
-        android.content.Intent batteryIntent = registerReceiver(null, new android.content.IntentFilter(android.content.Intent.ACTION_BATTERY_CHANGED));
-        if (batteryIntent == null) {
-            return "{}";
-        }
-
-        int level = batteryIntent.getIntExtra(android.os.BatteryManager.EXTRA_LEVEL, -1);
-        int scale = batteryIntent.getIntExtra(android.os.BatteryManager.EXTRA_SCALE, 100);
-        int batteryPct = level * 100 / scale;
-
-        int status = batteryIntent.getIntExtra(android.os.BatteryManager.EXTRA_STATUS, -1);
-        boolean isCharging = (status == android.os.BatteryManager.BATTERY_STATUS_CHARGING ||
-                             status == android.os.BatteryManager.BATTERY_STATUS_FULL);
-
-        int health = batteryIntent.getIntExtra(android.os.BatteryManager.EXTRA_HEALTH, -1);
-        int temperature = batteryIntent.getIntExtra(android.os.BatteryManager.EXTRA_TEMPERATURE, 0);
-        int voltage = batteryIntent.getIntExtra(android.os.BatteryManager.EXTRA_VOLTAGE, 0);
-        String technology = batteryIntent.getStringExtra(android.os.BatteryManager.EXTRA_TECHNOLOGY);
-
-        return String.format(
-            "{\"l\":%d,\"c\":%d,\"h\":%d,\"t\":%d,\"v\":%d,\"tech\":\"%s\"}",
-            batteryPct, isCharging ? 1 : 0, health, temperature / 10, voltage, technology != null ? technology : ""
-        );
-    }
-
     @Override
     public void onDestroy() {
         running = false;
-        PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
+        if (settings != null) {
+            settings.unregisterChangeListener(this);
+        }
         stopListener();
         super.onDestroy();
         Log.d(TAG, "Service destroyed");
