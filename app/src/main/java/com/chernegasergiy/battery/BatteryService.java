@@ -2,8 +2,8 @@ package com.chernegasergiy.battery;
 
 import android.app.Service;
 import android.content.Intent;
-import android.net.LocalServerSocket;
-import android.net.LocalSocket;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -19,7 +19,7 @@ import java.net.Socket;
 
 public class BatteryService extends Service {
     private static final String TAG = "BatteryService";
-    private static final String SOCKET_NAME = "com.chernegasergiy.battery";
+    private static final int PORT = 8765;
 
     private Thread listenerThread;
     private boolean running = true;
@@ -44,10 +44,10 @@ public class BatteryService extends Service {
 
         listenerThread = new Thread(() -> {
             try {
-                Log.d(TAG, "Opening LocalServerSocket");
-                try (LocalServerSocket server = new LocalServerSocket(SOCKET_NAME)) {
+                Log.d(TAG, "Opening ServerSocket on port " + PORT);
+                try (ServerSocket server = new ServerSocket(PORT, 50, InetAddress.getByName("127.0.0.1"))) {
                     while (running) {
-                        try (LocalSocket client = server.accept()) {
+                        try (Socket client = server.accept()) {
                             Log.d(TAG, "Client connected");
                             DataInputStream in = new DataInputStream(client.getInputStream());
                             DataOutputStream out = new DataOutputStream(client.getOutputStream());
