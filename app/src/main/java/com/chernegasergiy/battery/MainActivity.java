@@ -11,5 +11,9 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         startService(new Intent(this, BatteryService.class));
+
+        findViewById(R.id.btn_settings).setOnClickListener(v -> {
+            startActivity(new Intent(this, SettingsActivity.class));
+        });
     }
 }

@@ -21,4 +21,11 @@
         android:text="The TCP server is running on 127.0.0.1:8765.\nYou can now close this app."
         android:textSize="14sp" />
 
+    <Button
+        android:id="@+id/btn_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Settings" />
+
 </LinearLayout>
