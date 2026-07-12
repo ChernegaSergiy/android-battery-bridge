@@ -30,6 +30,7 @@
     <string name="notif_title">Battery Bridge працює</string>
     <string name="notif_text">TCP-сервер активний у фоновому режимі</string>
     <string name="toast_client_connected">Клієнт підключився: %s</string>
+    <string name="toast_restarting">Перезапуск...</string>
     <string name="main_title_active">PHP Battery Bridge активний</string>
     <string name="main_info_server">TCP-сервер запущено на %1$s:%2$d.\nТепер ви можете закрити цей додаток.</string>
     <string name="btn_restart_server">Перезапустити сервер</string>

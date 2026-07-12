@@ -28,7 +28,7 @@ public class MainActivity extends Activity implements ServerStatusObserver.OnSta
         android.widget.Button btnRestart = findViewById(R.id.btnRestart);
         btnRestart.setOnClickListener(v -> {
             startService(new Intent(this, BatteryService.class));
-            android.widget.Toast.makeText(this, "Restarting...", android.widget.Toast.LENGTH_SHORT).show();
+            android.widget.Toast.makeText(this, getString(R.string.toast_restarting), android.widget.Toast.LENGTH_SHORT).show();
         });
     }
 

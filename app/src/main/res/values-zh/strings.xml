@@ -30,6 +30,7 @@
     <string name="notif_title">Battery Bridge 正在运行</string>
     <string name="notif_text">TCP服务器正在后台运行</string>
     <string name="toast_client_connected">客户端已连接: %s</string>
+    <string name="toast_restarting">正在重启...</string>
     <string name="main_title_active">PHP Battery Bridge 正在运行</string>
     <string name="main_info_server">TCP服务器正在 %1$s:%2$d 上运行。\n您现在可以关闭此应用程序。</string>
     <string name="btn_restart_server">重启服务器</string>

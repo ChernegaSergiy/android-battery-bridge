@@ -30,6 +30,7 @@
     <string name="notif_title">Battery Bridge läuft</string>
     <string name="notif_text">TCP-Server ist im Hintergrund aktiv</string>
     <string name="toast_client_connected">Client verbunden: %s</string>
+    <string name="toast_restarting">Neustart...</string>
     <string name="main_title_active">PHP Battery Bridge ist aktiv</string>
     <string name="main_info_server">Der TCP-Server läuft auf %1$s:%2$d.\nSie können diese App nun schließen.</string>
     <string name="btn_restart_server">Server neu starten</string>
