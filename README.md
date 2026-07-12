@@ -40,7 +40,7 @@ Response JSON:
 
 ### Prerequisites
 
-- Android SDK (ANDROID_HOME)
+- Android SDK (`ANDROID_HOME`)
 - Gradle (optional, wrapper included)
 
 ### Build APK
