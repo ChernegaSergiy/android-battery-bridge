@@ -3,19 +3,26 @@
     <string name="app_name">PHP Battery Bridge</string>
     <string name="pref_port_title">TCP-Port</string>
     <string name="pref_port_summary">Portnummer für den TCP-Server (Standard: 8765)</string>
+    
     <string name="pref_autostart_title">Beim Booten starten</string>
     <string name="pref_autostart_summary">Hintergrunddienst beim Gerätestart automatisch ausführen</string>
+    
     <string name="pref_foreground_title">Dauerhafte Benachrichtigung</string>
     <string name="pref_foreground_summary">Als Vordergrunddienst ausführen, damit Android ihn nicht beendet</string>
+    
     <string name="pref_network_title">Auf allen Schnittstellen hören (0.0.0.0)</string>
     <string name="pref_network_summary">Verbindungen von anderen Geräten im lokalen WLAN zulassen</string>
+    
     <string name="pref_debug_title">Debug-Benachrichtigungen</string>
     <string name="pref_debug_summary">Popup-Nachricht bei jeder Client-Verbindung anzeigen</string>
+
     <string name="pref_cat_connection">Verbindung</string>
     <string name="pref_cat_background">Hintergrundausführung</string>
     <string name="pref_cat_developer">Entwickleroptionen</string>
+
     <string name="about_title">Über</string>
     <string name="about_message">PHP Battery Bridge\n\nLeichter TCP-Server, der Batterieinformationen für PHP-Skripte bereitstellt.\n\nAutor: Serhii Cherneha\nLizenz: CSSM Unlimited License v2.0</string>
+
     <string name="notif_channel_name">Hintergrunddienst</string>
     <string name="notif_title">Battery Bridge läuft</string>
     <string name="notif_text">TCP-Server ist im Hintergrund aktiv</string>
