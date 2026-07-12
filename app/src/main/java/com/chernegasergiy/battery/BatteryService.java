@@ -112,6 +112,11 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
                 Log.d(TAG, "Opening ServerSocket on " + bindAddress.getHostAddress() + ":" + finalPort);
                 try (ServerSocket server = new ServerSocket(finalPort, 50, bindAddress)) {
                     activeServer = server;
+                    
+                    Intent statusIntent = new Intent("com.chernegasergiy.battery.SERVER_STATUS");
+                    statusIntent.putExtra("status", "OK");
+                    sendBroadcast(statusIntent);
+                    
                     while (running && !Thread.currentThread().isInterrupted()) {
                         try (Socket client = server.accept()) {
                             Log.d(TAG, "Client connected: " + client.getInetAddress().getHostAddress());
@@ -134,6 +139,9 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
             } catch (Exception e) {
                 if (running) {
                     Log.e(TAG, "Error in listener", e);
+                    Intent errIntent = new Intent("com.chernegasergiy.battery.SERVER_STATUS");
+                    errIntent.putExtra("status", "ERROR");
+                    sendBroadcast(errIntent);
                 }
             }
         });

@@ -13,6 +13,37 @@ public class MainActivity extends Activity {
         startService(new Intent(this, BatteryService.class));
     }
 
+    private android.content.BroadcastReceiver statusReceiver = new android.content.BroadcastReceiver() {
+        @Override
+        public void onReceive(android.content.Context context, Intent intent) {
+            String status = intent.getStringExtra("status");
+            android.widget.TextView tvTitle = findViewById(R.id.tvTitle);
+            if ("OK".equals(status)) {
+                tvTitle.setText(R.string.main_title_active);
+                tvTitle.setTextColor(android.graphics.Color.parseColor("#4CAF50"));
+            } else if ("ERROR".equals(status)) {
+                tvTitle.setText("Error: Port is busy!");
+                tvTitle.setTextColor(android.graphics.Color.RED);
+            }
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (android.os.Build.VERSION.SDK_INT >= 33) {
+            registerReceiver(statusReceiver, new android.content.IntentFilter("com.chernegasergiy.battery.SERVER_STATUS"), android.content.Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(statusReceiver, new android.content.IntentFilter("com.chernegasergiy.battery.SERVER_STATUS"));
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(statusReceiver);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
