@@ -10,6 +10,9 @@
     <string name="pref_foreground_title">Постійне сповіщення (Foreground)</string>
     <string name="pref_foreground_summary">Запустити як пріоритетну службу, щоб Android не вбив процес</string>
     
+    <string name="pref_wakelock_title">Запобігати сну (WakeLock)</string>
+    <string name="pref_wakelock_summary">Тримати процесор і Wi-Fi активними при вимкненому екрані (більше витрачає батарею)</string>
+    
     <string name="pref_network_title">Слухати всі інтерфейси (0.0.0.0)</string>
     <string name="pref_network_summary">Дозволити підключення з інших пристроїв у локальній мережі Wi-Fi</string>
     

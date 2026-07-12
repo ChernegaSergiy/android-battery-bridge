@@ -10,6 +10,9 @@
     <string name="pref_foreground_title">Stałe powiadomienie</string>
     <string name="pref_foreground_summary">Uruchom jako usługę pierwszoplanową, aby zapobiec jej zabiciu przez Androida</string>
     
+    <string name="pref_wakelock_title">Zapobiegaj uśpieniu (WakeLock)</string>
+    <string name="pref_wakelock_summary">Utrzymuj procesor i Wi-Fi aktywne przy wyłączonym ekranie (większe zużycie baterii)</string>
+    
     <string name="pref_network_title">Nasłuchuj na wszystkich interfejsach (0.0.0.0)</string>
     <string name="pref_network_summary">Zezwalaj na połączenia z innych urządzeń w sieci Wi-Fi</string>
     

@@ -10,6 +10,9 @@
     <string name="pref_foreground_title">Persistent Notification</string>
     <string name="pref_foreground_summary">Run as a foreground service to prevent Android from killing it</string>
     
+    <string name="pref_wakelock_title">Prevent Sleep (WakeLock)</string>
+    <string name="pref_wakelock_summary">Keep CPU and Wi-Fi active when screen is off (uses more battery)</string>
+    
     <string name="pref_network_title">Listen on All Interfaces (0.0.0.0)</string>
     <string name="pref_network_summary">Allow connections from other devices on the local Wi-Fi network</string>
     

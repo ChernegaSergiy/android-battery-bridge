@@ -10,6 +10,9 @@
     <string name="pref_foreground_title">Notification persistante</string>
     <string name="pref_foreground_summary">Exécuter comme service au premier plan pour éviter sa fermeture par Android</string>
     
+    <string name="pref_wakelock_title">Empêcher la veille (WakeLock)</string>
+    <string name="pref_wakelock_summary">Garder le CPU et le Wi-Fi actifs quand l\'écran est éteint (utilise plus de batterie)</string>
+    
     <string name="pref_network_title">Écouter sur toutes les interfaces (0.0.0.0)</string>
     <string name="pref_network_summary">Autoriser les connexions d\'autres appareils sur le réseau Wi-Fi local</string>
     

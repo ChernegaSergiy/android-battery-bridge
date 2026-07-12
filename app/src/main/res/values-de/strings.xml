@@ -10,6 +10,9 @@
     <string name="pref_foreground_title">Dauerhafte Benachrichtigung</string>
     <string name="pref_foreground_summary">Als Vordergrunddienst ausführen, damit Android ihn nicht beendet</string>
     
+    <string name="pref_wakelock_title">Ruhezustand verhindern (WakeLock)</string>
+    <string name="pref_wakelock_summary">CPU und WLAN bei ausgeschaltetem Bildschirm aktiv halten (erhöhter Akkuverbrauch)</string>
+    
     <string name="pref_network_title">Auf allen Schnittstellen hören (0.0.0.0)</string>
     <string name="pref_network_summary">Verbindungen von anderen Geräten im lokalen WLAN zulassen</string>
     

@@ -23,6 +23,10 @@ public class SettingsRepository {
         return prefs.getBoolean("pref_network_all", false);
     }
 
+    public boolean isWakeLockEnabled() {
+        return prefs.getBoolean("pref_wakelock", false);
+    }
+
     public boolean isDebugToastsEnabled() {
         return prefs.getBoolean("pref_debug_toasts", false);
     }

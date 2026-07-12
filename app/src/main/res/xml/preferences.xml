@@ -28,6 +28,12 @@
             android:title="@string/pref_foreground_title"
             android:summary="@string/pref_foreground_summary"
             android:defaultValue="false" />
+
+        <CheckBoxPreference
+            android:key="pref_wakelock"
+            android:title="@string/pref_wakelock_title"
+            android:summary="@string/pref_wakelock_summary"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_cat_developer">
