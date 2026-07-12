@@ -28,8 +28,11 @@ public class MainActivity extends Activity {
             // ignore
         }
         
+        boolean listenAll = prefs.getBoolean("pref_network_all", false);
+        String ip = listenAll ? getLocalIpAddress() : "127.0.0.1";
+        
         android.widget.TextView tvInfo = findViewById(R.id.tvInfo);
-        tvInfo.setText(getString(R.string.main_info_server, "127.0.0.1", port));
+        tvInfo.setText(getString(R.string.main_info_server, ip, port));
     }
 
     private String getLocalIpAddress() {
