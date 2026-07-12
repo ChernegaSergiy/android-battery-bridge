@@ -87,15 +87,15 @@ public class BatteryService extends Service implements TcpServer.Listener {
 
     @Override
     public void onServerStarted() {
-        Intent statusIntent = new Intent("com.chernegasergiy.battery.SERVER_STATUS");
-        statusIntent.putExtra("status", "OK");
+        Intent statusIntent = new Intent(com.chernegasergiy.battery.ui.ServerStatusObserver.ACTION_SERVER_STATUS);
+        statusIntent.putExtra(com.chernegasergiy.battery.ui.ServerStatusObserver.EXTRA_STATUS, com.chernegasergiy.battery.ui.ServerStatusObserver.STATUS_OK);
         sendBroadcast(statusIntent);
     }
 
     @Override
     public void onServerError(Exception e) {
-        Intent errIntent = new Intent("com.chernegasergiy.battery.SERVER_STATUS");
-        errIntent.putExtra("status", "ERROR");
+        Intent errIntent = new Intent(com.chernegasergiy.battery.ui.ServerStatusObserver.ACTION_SERVER_STATUS);
+        errIntent.putExtra(com.chernegasergiy.battery.ui.ServerStatusObserver.EXTRA_STATUS, com.chernegasergiy.battery.ui.ServerStatusObserver.STATUS_ERROR);
         sendBroadcast(errIntent);
     }
 
