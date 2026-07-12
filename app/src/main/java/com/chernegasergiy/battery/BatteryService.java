@@ -11,7 +11,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class BatteryService extends Service {
+public class BatteryService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = "BatteryService";
     private static final int PORT = 8765;
 
@@ -23,6 +23,15 @@ public class BatteryService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "Service created");
+        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
+    }
+    
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if ("pref_port".equals(key) || "pref_network_all".equals(key)) {
+            Log.d(TAG, "Network preferences changed, restarting listener...");
+            startListener();
+        }
     }
 
     @Override
@@ -114,6 +123,7 @@ public class BatteryService extends Service {
     @Override
     public void onDestroy() {
         running = false;
+        PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
         stopListener();
         super.onDestroy();
         Log.d(TAG, "Service destroyed");
