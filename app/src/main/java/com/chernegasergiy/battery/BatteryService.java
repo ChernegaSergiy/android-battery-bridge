@@ -126,6 +126,7 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
                             String batteryData = getBatteryData();
                             PrintWriter pw = new PrintWriter(client.getOutputStream(), true);
                             pw.print(batteryData);
+                            pw.flush();
                             Log.d(TAG, "Sent: " + batteryData);
                         }
                     }
