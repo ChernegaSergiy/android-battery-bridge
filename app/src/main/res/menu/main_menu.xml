@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_about"
-        android:title="About"
+        android:title="@string/menu_about"
         android:orderInCategory="90"
         android:showAsAction="never" />
 
     <item
         android:id="@+id/action_settings"
-        android:title="Settings"
+        android:title="@string/menu_settings"
         android:orderInCategory="100"
         android:showAsAction="never" />
 </menu>

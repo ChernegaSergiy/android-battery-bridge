@@ -25,4 +25,7 @@
     <string name="toast_client_connected">Клієнт підключився: %s</string>
     <string name="main_title_active">PHP Battery Bridge активний</string>
     <string name="main_info_server">TCP-сервер запущено на %1$s:%2$d.\nТепер ви можете закрити цей додаток.</string>
+    
+    <string name="menu_about">Про програму</string>
+    <string name="menu_settings">Налаштування</string>
 </resources>
