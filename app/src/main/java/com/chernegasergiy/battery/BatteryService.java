@@ -2,14 +2,11 @@ package com.chernegasergiy.battery;
 
 import android.app.Service;
 import android.content.Intent;
-import java.net.InetAddress;
-import java.net.ServerSocket;
 import android.os.IBinder;
 import android.util.Log;
-
-import androidx.annotation.Nullable;
-
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 public class BatteryService extends Service {
@@ -90,7 +87,6 @@ public class BatteryService extends Service {
         Log.d(TAG, "Service destroyed");
     }
 
-    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
