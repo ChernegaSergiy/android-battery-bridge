@@ -45,10 +45,13 @@ public class BatteryService extends Service {
         }
 
         final int finalPort = port;
+        final boolean allInterfaces = prefs.getBoolean("pref_network_all", false);
+        
         listenerThread = new Thread(() -> {
             try {
-                Log.d(TAG, "Opening ServerSocket on port " + finalPort);
-                try (ServerSocket server = new ServerSocket(finalPort, 50, InetAddress.getByName("127.0.0.1"))) {
+                InetAddress bindAddress = InetAddress.getByName(allInterfaces ? "0.0.0.0" : "127.0.0.1");
+                Log.d(TAG, "Opening ServerSocket on " + bindAddress.getHostAddress() + ":" + finalPort);
+                try (ServerSocket server = new ServerSocket(finalPort, 50, bindAddress)) {
                     while (running) {
                         try (Socket client = server.accept()) {
                             Log.d(TAG, "Client connected");
