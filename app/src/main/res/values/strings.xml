@@ -18,4 +18,8 @@
 
     <string name="about_title">About</string>
     <string name="about_message">PHP Battery Bridge\n\nA lightweight TCP server providing battery info for PHP scripts.\n\nAuthor: Serhii Cherneha\nLicense: CSSM Unlimited License v2.0</string>
+
+    <string name="notif_channel_name">Background Service</string>
+    <string name="notif_title">Battery Bridge is running</string>
+    <string name="notif_text">TCP server is active in the background</string>
 </resources>
