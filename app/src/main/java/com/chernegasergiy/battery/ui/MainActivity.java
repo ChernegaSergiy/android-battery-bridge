@@ -15,6 +15,12 @@ public class MainActivity extends Activity implements ServerStatusObserver.OnSta
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (android.os.Build.VERSION.SDK_INT >= 33) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
+            }
+        }
+
         statusObserver = new ServerStatusObserver(this, this);
 
         startService(new Intent(this, BatteryService.class));
