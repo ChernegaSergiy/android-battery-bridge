@@ -114,7 +114,15 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
                     activeServer = server;
                     while (running && !Thread.currentThread().isInterrupted()) {
                         try (Socket client = server.accept()) {
-                            Log.d(TAG, "Client connected");
+                            Log.d(TAG, "Client connected: " + client.getInetAddress().getHostAddress());
+                            
+                            if (prefs.getBoolean("pref_debug_toasts", false)) {
+                                final String clientIp = client.getInetAddress().getHostAddress();
+                                new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
+                                    android.widget.Toast.makeText(BatteryService.this, "Client connected: " + clientIp, android.widget.Toast.LENGTH_SHORT).show();
+                                });
+                            }
+
                             String batteryData = getBatteryData();
                             PrintWriter pw = new PrintWriter(client.getOutputStream(), true);
                             pw.print(batteryData);
