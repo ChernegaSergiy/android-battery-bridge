@@ -2,24 +2,25 @@
 
 [![Build APK](https://github.com/ChernegaSergiy/android-battery-bridge/actions/workflows/build.yml/badge.svg)](https://github.com/ChernegaSergiy/android-battery-bridge/actions/workflows/build.yml)
 
-A specialized Android application that exposes real-time battery information to PHP extensions via IPC. It implements a Reverse Socket Bridge pattern where PHP creates a local socket server and receives battery data (level, charging status, health, temperature, voltage, technology) in JSON format. This bridge is designed for PHP applications running on Android that need to monitor or react to battery state changes.
+A specialized Android application that exposes real-time battery information to PHP extensions via IPC. It implements a simple TCP Socket Server and sends battery data (level, charging status, health, temperature, voltage, technology) in JSON format when a client connects. This bridge is designed for PHP applications running on Android (like Termux) that need to monitor or react to battery state changes.
 
 ## Architecture
 
-This implements a "Reverse Socket Bridge" pattern (Termux-style):
+This implements a direct TCP Server approach:
 
-1. **PHP creates a local socket server** (127.0.0.1 only)
-2. **PHP broadcasts Intent** with the port number
-3. **Android BroadcastReceiver** receives the intent, reads battery data, and sends JSON back
+1. **Android App runs a local TCP server** on port `8765` (127.0.0.1 only)
+2. **PHP connects** to `127.0.0.1:8765`
+3. **Android App sends** the battery data in JSON format and immediately closes the connection.
 
 ## Components
 
 - **MainActivity** - Minimal UI to register the app in launcher
-- **BatteryReceiver** - Receives broadcasts and returns battery data via socket
+- **BatteryService** - A background service that hosts the TCP server and provides battery data.
+- **BatteryReceiver** - (Legacy) Receives broadcasts and returns battery data via reverse socket connection.
 
 ## IPC Protocol
 
-Broadcast Intent: `com.chernegasergiy.battery.GET_STATUS` with extra `remote_port`
+Simply connect via TCP to `127.0.0.1` on port `8765`.
 
 Response JSON:
 ```json
