@@ -40,10 +40,15 @@ public class NotificationHelper {
             builder = new Notification.Builder(context);
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            builder.setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE);
+        }
+
         return builder
                 .setContentTitle(context.getString(R.string.notif_title))
                 .setContentText(context.getString(R.string.notif_text))
                 .setSmallIcon(R.mipmap.ic_launcher)
+                .setOngoing(true)
                 .build();
     }
 }
