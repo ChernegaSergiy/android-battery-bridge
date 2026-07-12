@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
         statusObserver = new ServerStatusObserver(this, status -> {
             boolean isOk = (status == ServerStatusObserver.STATUS_OK);
             tvTitle.setText(isOk ? R.string.main_title_active : R.string.main_title_stopped);
-            tvTitle.setTextColor(isOk ? 0xFF33B5E5 : 0xFFFF4444);
+            tvTitle.setTextColor(getResources().getColor(isOk ? android.R.color.holo_blue_light : android.R.color.holo_red_light));
             btnToggleServer.setChecked(isOk);
         });
 

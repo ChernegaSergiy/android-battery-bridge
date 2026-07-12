@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#F3F3F3">
+    android:padding="16dp">
 
     <!-- Status Block -->
     <TextView
@@ -12,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/main_title_active"
-        android:textColor="#33B5E5"
         android:textSize="32sp"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
@@ -24,8 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/main_info_server"
-        android:textColor="#000000"
-        android:textSize="16sp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:gravity="center"
         android:layout_marginBottom="32dp" />
 
@@ -43,7 +40,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#33B5E5"
+        android:background="@android:color/holo_blue_light"
         android:layout_marginBottom="16dp" />
 
     <!-- Data and Logs Block -->
@@ -52,8 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Заряд: 85% (Розряджається)\nТемпература: 32.0°C\nСтан: Живлення від мережі: ВІДКЛЮЧЕНО"
-        android:textColor="#000000"
-        android:textSize="16sp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:lineSpacingExtra="4dp"
         android:layout_marginBottom="16dp" />
 
@@ -62,7 +58,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Останнє підключення: 22:00:05 (через 127.0.0.1)"
-        android:textColor="#666666"
-        android:textSize="14sp" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </LinearLayout>
