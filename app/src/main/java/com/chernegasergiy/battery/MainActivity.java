@@ -24,6 +24,13 @@ public class MainActivity extends Activity {
         if (item.getItemId() == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
+        } else if (item.getItemId() == R.id.action_about) {
+            new android.app.AlertDialog.Builder(this)
+                    .setTitle(R.string.about_title)
+                    .setMessage(R.string.about_message)
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
