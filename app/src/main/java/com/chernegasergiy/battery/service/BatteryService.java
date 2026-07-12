@@ -2,21 +2,39 @@ package com.chernegasergiy.battery.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import com.chernegasergiy.battery.R;
 import com.chernegasergiy.battery.network.TcpServer;
 import com.chernegasergiy.battery.ui.NotificationHelper;
+import com.chernegasergiy.battery.ui.SettingsActivity;
 
-public class BatteryService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener, TcpServer.Listener {
+public class BatteryService extends Service implements TcpServer.Listener {
     private static final String TAG = "BatteryService";
 
     private com.chernegasergiy.battery.data.SettingsRepository settings;
     private com.chernegasergiy.battery.data.BatteryDataProvider batteryDataProvider;
     private TcpServer tcpServer;
     private NotificationHelper notificationHelper;
+
+    private final BroadcastReceiver settingsReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (SettingsActivity.ACTION_SETTINGS_CHANGED.equals(intent.getAction())) {
+                String key = intent.getStringExtra(SettingsActivity.EXTRA_SETTING_KEY);
+                if ("pref_port".equals(key) || "pref_network_all".equals(key)) {
+                    Log.d(TAG, "Network preferences changed, restarting listener...");
+                    startListener();
+                } else if ("pref_foreground".equals(key)) {
+                    updateForegroundState();
+                }
+            }
+        }
+    };
 
     @Override
     public void onCreate() {
@@ -25,16 +43,12 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
         settings = new com.chernegasergiy.battery.data.SettingsRepository(this);
         batteryDataProvider = new com.chernegasergiy.battery.data.BatteryDataProvider(this);
         notificationHelper = new NotificationHelper(this);
-        settings.registerChangeListener(this);
-    }
-    
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if ("pref_port".equals(key) || "pref_network_all".equals(key)) {
-            Log.d(TAG, "Network preferences changed, restarting listener...");
-            startListener();
-        } else if ("pref_foreground".equals(key)) {
-            updateForegroundState();
+        
+        IntentFilter filter = new IntentFilter(SettingsActivity.ACTION_SETTINGS_CHANGED);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(settingsReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(settingsReceiver, filter);
         }
     }
 
@@ -101,9 +115,7 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
 
     @Override
     public void onDestroy() {
-        if (settings != null) {
-            settings.unregisterChangeListener(this);
-        }
+        unregisterReceiver(settingsReceiver);
         stopListener();
         super.onDestroy();
         Log.d(TAG, "Service destroyed");
