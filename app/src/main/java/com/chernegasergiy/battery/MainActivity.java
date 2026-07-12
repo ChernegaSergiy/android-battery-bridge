@@ -11,9 +11,20 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         startService(new Intent(this, BatteryService.class));
+    }
 
-        findViewById(R.id.btn_settings).setOnClickListener(v -> {
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        if (item.getItemId() == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
-        });
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
