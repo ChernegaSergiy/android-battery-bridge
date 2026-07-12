@@ -9,12 +9,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class BatteryService extends Service {
@@ -49,24 +44,10 @@ public class BatteryService extends Service {
                     while (running) {
                         try (Socket client = server.accept()) {
                             Log.d(TAG, "Client connected");
-                            DataInputStream in = new DataInputStream(client.getInputStream());
-                            DataOutputStream out = new DataOutputStream(client.getOutputStream());
-
-                            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                            String line = reader.readLine();
-
-                            if (line != null && line.startsWith("PORT:")) {
-                                int port = Integer.parseInt(line.substring(5));
-                                Log.d(TAG, "Received port: " + port);
-
-                                String batteryData = getBatteryData();
-
-                                try (Socket socket = new Socket("127.0.0.1", port)) {
-                                    PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
-                                    pw.print(batteryData);
-                                    Log.d(TAG, "Sent: " + batteryData);
-                                }
-                            }
+                            String batteryData = getBatteryData();
+                            PrintWriter pw = new PrintWriter(client.getOutputStream(), true);
+                            pw.print(batteryData);
+                            Log.d(TAG, "Sent: " + batteryData);
                         }
                     }
                 }
