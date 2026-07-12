@@ -36,6 +36,16 @@
     <string name="btn_restart_server">Перезапустити сервер</string>
     <string name="main_title_stopped">Сервер зупинено</string>
     
-    <string name="menu_about">Про програму</string>
+    <string name="btn_on">УВІМК</string>
+    <string name="btn_off">ВИМК</string>
+    <string name="telemetry_charging">Заряджається</string>
+    <string name="telemetry_discharging">Розряджається</string>
+    <string name="telemetry_ac_connected">ПІДКЛЮЧЕНО</string>
+    <string name="telemetry_ac_disconnected">ВІДКЛЮЧЕНО</string>
+    <string name="telemetry_format">Заряд: %1$d%% (%2$s)\nТемпература: %3$.1f°C\nСтан: Живлення від мережі: %4$s</string>
+    <string name="log_format">Останнє підключення: %1$s (через %2$s)</string>
+    <string name="log_no_data">Останнє підключення: Немає даних</string>
+    
+    <string name="menu_about">Про додаток</string>
     <string name="menu_settings">Налаштування</string>
 </resources>

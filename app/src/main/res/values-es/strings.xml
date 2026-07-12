@@ -36,6 +36,16 @@
     <string name="btn_restart_server">Reiniciar servidor</string>
     <string name="main_title_stopped">El servidor está detenido</string>
     
+    <string name="btn_on">ENC.</string>
+    <string name="btn_off">APAG.</string>
+    <string name="telemetry_charging">Cargando</string>
+    <string name="telemetry_discharging">Descargando</string>
+    <string name="telemetry_ac_connected">CONECTADO</string>
+    <string name="telemetry_ac_disconnected">DESCONECTADO</string>
+    <string name="telemetry_format">Carga: %1$d%% (%2$s)\nTemperatura: %3$.1f°C\nEstado: Energía CA: %4$s</string>
+    <string name="log_format">Última conexión: %1$s (vía %2$s)</string>
+    <string name="log_no_data">Última conexión: Sin datos</string>
+    
     <string name="menu_about">Acerca de</string>
     <string name="menu_settings">Ajustes</string>
 </resources>

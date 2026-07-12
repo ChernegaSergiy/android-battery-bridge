@@ -36,6 +36,16 @@
     <string name="btn_restart_server">Restart Server</string>
     <string name="main_title_stopped">Server is stopped</string>
     
+    <string name="btn_on">ON</string>
+    <string name="btn_off">OFF</string>
+    <string name="telemetry_charging">Charging</string>
+    <string name="telemetry_discharging">Discharging</string>
+    <string name="telemetry_ac_connected">CONNECTED</string>
+    <string name="telemetry_ac_disconnected">DISCONNECTED</string>
+    <string name="telemetry_format">Charge: %1$d%% (%2$s)\nTemperature: %3$.1f°C\nStatus: AC Power: %4$s</string>
+    <string name="log_format">Last connection: %1$s (via %2$s)</string>
+    <string name="log_no_data">Last connection: No data</string>
+    
     <string name="menu_about">About</string>
     <string name="menu_settings">Settings</string>
 </resources>

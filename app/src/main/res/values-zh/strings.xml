@@ -36,6 +36,16 @@
     <string name="btn_restart_server">重启服务器</string>
     <string name="main_title_stopped">服务器已停止</string>
     
+    <string name="btn_on">开</string>
+    <string name="btn_off">关</string>
+    <string name="telemetry_charging">充电中</string>
+    <string name="telemetry_discharging">放电中</string>
+    <string name="telemetry_ac_connected">已连接</string>
+    <string name="telemetry_ac_disconnected">已断开</string>
+    <string name="telemetry_format">电量: %1$d%% (%2$s)\n温度: %3$.1f°C\n状态: 交流电源: %4$s</string>
+    <string name="log_format">最后连接: %1$s (来自 %2$s)</string>
+    <string name="log_no_data">最后连接: 暂无数据</string>
+    
     <string name="menu_about">关于</string>
     <string name="menu_settings">设置</string>
 </resources>

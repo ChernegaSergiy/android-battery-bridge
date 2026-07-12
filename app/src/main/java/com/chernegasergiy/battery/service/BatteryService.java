@@ -158,8 +158,10 @@ public class BatteryService extends Service implements TcpServer.Listener {
     @Override
     public void onClientConnected(String clientIp) {
         String time = new java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.US).format(new java.util.Date());
-        String logText = "Останнє підключення: " + time + " (через " + clientIp + ")";
-        getSharedPreferences("logs", Context.MODE_PRIVATE).edit().putString("last_log", logText).apply();
+        android.content.SharedPreferences.Editor editor = getSharedPreferences("logs", Context.MODE_PRIVATE).edit();
+        editor.putString("last_log_time", time);
+        editor.putString("last_log_ip", clientIp);
+        editor.apply();
         
         Intent intent = new Intent("com.chernegasergiy.battery.ACTION_NEW_LOG");
         sendBroadcast(intent);

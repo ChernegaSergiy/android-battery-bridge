@@ -104,17 +104,23 @@ public class MainActivity extends Activity {
 
     private void updateTelemetry() {
         BatteryInfo info = batteryDataProvider.getBatteryInfo();
-        String chargeState = info.isCharging ? "Заряджається" : "Розряджається";
-        String acPowerState = info.isCharging ? "ПІДКЛЮЧЕНО" : "ВІДКЛЮЧЕНО";
+        String chargeState = getString(info.isCharging ? R.string.telemetry_charging : R.string.telemetry_discharging);
+        String acPowerState = getString(info.isCharging ? R.string.telemetry_ac_connected : R.string.telemetry_ac_disconnected);
         
-        String telemetry = String.format(java.util.Locale.US, "Заряд: %d%% (%s)\nТемпература: %.1f°C\nСтан: Живлення від мережі: %s",
-                info.percent, chargeState, info.temperatureCelsius, acPowerState);
+        String telemetry = getString(R.string.telemetry_format, info.percent, chargeState, info.temperatureCelsius, acPowerState);
         tvTelemetry.setText(telemetry);
     }
 
     private void updateLog() {
-        String lastLog = getSharedPreferences("logs", Context.MODE_PRIVATE).getString("last_log", "Останнє підключення: Немає даних");
-        tvLog.setText(lastLog);
+        android.content.SharedPreferences prefs = getSharedPreferences("logs", Context.MODE_PRIVATE);
+        String time = prefs.getString("last_log_time", null);
+        String ip = prefs.getString("last_log_ip", null);
+        
+        if (time == null || ip == null) {
+            tvLog.setText(R.string.log_no_data);
+        } else {
+            tvLog.setText(getString(R.string.log_format, time, ip));
+        }
     }
 
     @Override

@@ -36,6 +36,16 @@
     <string name="btn_restart_server">Redémarrer le serveur</string>
     <string name="main_title_stopped">Le serveur est arrêté</string>
     
+    <string name="btn_on">ON</string>
+    <string name="btn_off">OFF</string>
+    <string name="telemetry_charging">En charge</string>
+    <string name="telemetry_discharging">En décharge</string>
+    <string name="telemetry_ac_connected">CONNECTÉ</string>
+    <string name="telemetry_ac_disconnected">DÉCONNECTÉ</string>
+    <string name="telemetry_format">Charge : %1$d%% (%2$s)\nTempérature : %3$.1f°C\nStatut : Alimentation CA : %4$s</string>
+    <string name="log_format">Dernière connexion : %1$s (via %2$s)</string>
+    <string name="log_no_data">Dernière connexion : Aucune donnée</string>
+    
     <string name="menu_about">À propos</string>
     <string name="menu_settings">Paramètres</string>
 </resources>

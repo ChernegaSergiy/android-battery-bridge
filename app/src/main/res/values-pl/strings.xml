@@ -36,6 +36,16 @@
     <string name="btn_restart_server">Uruchom ponownie serwer</string>
     <string name="main_title_stopped">Serwer został zatrzymany</string>
     
-    <string name="menu_about">O programie</string>
+    <string name="btn_on">WŁ.</string>
+    <string name="btn_off">WYŁ.</string>
+    <string name="telemetry_charging">Ładowanie</string>
+    <string name="telemetry_discharging">Rozładowywanie</string>
+    <string name="telemetry_ac_connected">PODŁĄCZONE</string>
+    <string name="telemetry_ac_disconnected">ODŁĄCZONE</string>
+    <string name="telemetry_format">Bateria: %1$d%% (%2$s)\nTemperatura: %3$.1f°C\nStan: Zasilanie sieciowe: %4$s</string>
+    <string name="log_format">Ostatnie połączenie: %1$s (przez %2$s)</string>
+    <string name="log_no_data">Ostatnie połączenie: Brak danych</string>
+    
+    <string name="menu_about">O aplikacji</string>
     <string name="menu_settings">Ustawienia</string>
 </resources>
