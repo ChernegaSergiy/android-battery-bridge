@@ -62,6 +62,12 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        statusObserver.register();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         sendBroadcast(new Intent(ServerStatusObserver.ACTION_REQUEST_STATUS));
