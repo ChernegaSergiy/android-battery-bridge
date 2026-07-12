@@ -8,8 +8,8 @@ A specialized Android application that exposes real-time battery information to 
 
 This implements a direct TCP Server approach:
 
-1. **Android App runs a local TCP server** on port `8765` (127.0.0.1 only)
-2. **PHP connects** to `127.0.0.1:8765`
+1. **Android App runs a local TCP server** on a configurable port (default `8765`), bound to `127.0.0.1` or all interfaces (`0.0.0.0`).
+2. **PHP connects** to the configured IP and port.
 3. **Android App sends** the battery data in JSON format and immediately closes the connection.
 
 ## Components
@@ -31,7 +31,7 @@ This implements a direct TCP Server approach:
 
 ## IPC Protocol
 
-Simply connect via TCP to `127.0.0.1` on port `8765`.
+Simply connect via TCP to the configured IP (default `127.0.0.1`) on the configured port (default `8765`).
 
 Response JSON:
 ```json
@@ -76,7 +76,7 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 
 ## Usage
 
-After installing the APK, open the app once to register it in the launcher. The app will start a background service listening for TCP connections on port 8765.
+After installing the APK, open the app once to register it in the launcher. The app will start a background service listening for TCP connections on the configured port (default 8765). You can use the app's settings menu to change the port or allow connections from other devices on your network.
 
 This bridge is primarily designed to be consumed by the [battery_info PHP extension](https://github.com/ChernegaSergiy/battery-php-ext), which will automatically connect to this port to read the device's battery status when running in CLI environments like Termux.
 
