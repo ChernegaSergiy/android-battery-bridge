@@ -1,4 +1,4 @@
-package com.chernegasergiy.battery;
+package com.chernegasergiy.battery.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
