@@ -16,6 +16,7 @@ public class BatteryService extends Service {
     private static final int PORT = 8765;
 
     private Thread listenerThread;
+    private ServerSocket activeServer;
     private boolean running = true;
 
     @Override
@@ -31,10 +32,23 @@ public class BatteryService extends Service {
         return Service.START_STICKY;
     }
 
-    private void startListener() {
-        if (listenerThread != null && listenerThread.isAlive()) {
-            return;
+    private void stopListener() {
+        if (activeServer != null) {
+            try {
+                activeServer.close();
+            } catch (Exception e) {
+                Log.e(TAG, "Error closing server socket", e);
+            }
+            activeServer = null;
         }
+        if (listenerThread != null) {
+            listenerThread.interrupt();
+            listenerThread = null;
+        }
+    }
+
+    private void startListener() {
+        stopListener();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         int port = PORT;
@@ -52,7 +66,8 @@ public class BatteryService extends Service {
                 InetAddress bindAddress = InetAddress.getByName(allInterfaces ? "0.0.0.0" : "127.0.0.1");
                 Log.d(TAG, "Opening ServerSocket on " + bindAddress.getHostAddress() + ":" + finalPort);
                 try (ServerSocket server = new ServerSocket(finalPort, 50, bindAddress)) {
-                    while (running) {
+                    activeServer = server;
+                    while (running && !Thread.currentThread().isInterrupted()) {
                         try (Socket client = server.accept()) {
                             Log.d(TAG, "Client connected");
                             String batteryData = getBatteryData();
@@ -63,7 +78,9 @@ public class BatteryService extends Service {
                     }
                 }
             } catch (Exception e) {
-                Log.e(TAG, "Error in listener", e);
+                if (running) {
+                    Log.e(TAG, "Error in listener", e);
+                }
             }
         });
         listenerThread.start();
@@ -97,6 +114,7 @@ public class BatteryService extends Service {
     @Override
     public void onDestroy() {
         running = false;
+        stopListener();
         super.onDestroy();
         Log.d(TAG, "Service destroyed");
     }
