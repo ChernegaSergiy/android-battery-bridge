@@ -35,9 +35,6 @@
     <string name="main_info_server">Der TCP-Server läuft auf %1$s:%2$d.\nSie können diese App nun schließen.</string>
     <string name="btn_restart_server">Server neu starten</string>
     <string name="main_title_stopped">Server ist gestoppt</string>
-    
-    <string name="btn_on">EIN</string>
-    <string name="btn_off">AUS</string>
     <string name="telemetry_charging">Lädt</string>
     <string name="telemetry_discharging">Entlädt</string>
     <string name="telemetry_ac_connected">VERBUNDEN</string>

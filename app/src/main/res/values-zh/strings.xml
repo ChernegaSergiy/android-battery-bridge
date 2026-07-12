@@ -35,9 +35,6 @@
     <string name="main_info_server">TCP服务器正在 %1$s:%2$d 上运行。\n您现在可以关闭此应用程序。</string>
     <string name="btn_restart_server">重启服务器</string>
     <string name="main_title_stopped">服务器已停止</string>
-    
-    <string name="btn_on">开</string>
-    <string name="btn_off">关</string>
     <string name="telemetry_charging">充电中</string>
     <string name="telemetry_discharging">放电中</string>
     <string name="telemetry_ac_connected">已连接</string>

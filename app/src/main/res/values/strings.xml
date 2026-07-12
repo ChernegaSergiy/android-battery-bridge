@@ -35,9 +35,6 @@
     <string name="main_info_server">The TCP server is running on %1$s:%2$d.\nYou can now close this app.</string>
     <string name="btn_restart_server">Restart Server</string>
     <string name="main_title_stopped">Server is stopped</string>
-    
-    <string name="btn_on">ON</string>
-    <string name="btn_off">OFF</string>
     <string name="telemetry_charging">Charging</string>
     <string name="telemetry_discharging">Discharging</string>
     <string name="telemetry_ac_connected">CONNECTED</string>

@@ -27,13 +27,12 @@
         android:layout_marginBottom="32dp" />
 
     <!-- Control Element -->
-    <ToggleButton
-        android:id="@+id/btnToggleServer"
+    <Button
+        android:id="@+id/btnRestartServer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textOn="@string/btn_on"
-        android:textOff="@string/btn_off"
+        android:text="@string/btn_restart_server"
         android:layout_marginBottom="32dp" />
 
     <!-- Divider -->

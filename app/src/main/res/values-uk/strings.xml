@@ -35,9 +35,6 @@
     <string name="main_info_server">TCP-сервер запущено на %1$s:%2$d.\nТепер ви можете закрити цей додаток.</string>
     <string name="btn_restart_server">Перезапустити сервер</string>
     <string name="main_title_stopped">Сервер зупинено</string>
-    
-    <string name="btn_on">УВІМК</string>
-    <string name="btn_off">ВИМК</string>
     <string name="telemetry_charging">Заряджається</string>
     <string name="telemetry_discharging">Розряджається</string>
     <string name="telemetry_ac_connected">ПІДКЛЮЧЕНО</string>

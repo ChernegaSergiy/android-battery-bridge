@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.ToggleButton;
+import android.widget.Button;
 import com.chernegasergiy.battery.R;
 import com.chernegasergiy.battery.data.BatteryDataProvider;
 import com.chernegasergiy.battery.data.BatteryInfo;
@@ -17,7 +17,7 @@ import com.chernegasergiy.battery.service.BatteryService;
 
 public class MainActivity extends Activity {
     private ServerStatusObserver statusObserver;
-    private ToggleButton btnToggleServer;
+    private Button btnRestartServer;
     private TextView tvTelemetry;
     private TextView tvLog;
     private BatteryDataProvider batteryDataProvider;
@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         TextView tvTitle = findViewById(R.id.tvTitle);
-        btnToggleServer = findViewById(R.id.btnToggleServer);
+        btnRestartServer = findViewById(R.id.btnRestartServer);
         tvTelemetry = findViewById(R.id.tvTelemetry);
         tvLog = findViewById(R.id.tvLog);
         batteryDataProvider = new BatteryDataProvider(this);
@@ -48,16 +48,12 @@ public class MainActivity extends Activity {
             boolean isOk = (status == ServerStatusObserver.STATUS_OK);
             tvTitle.setText(isOk ? R.string.main_title_active : R.string.main_title_stopped);
             tvTitle.setTextColor(getResources().getColor(isOk ? android.R.color.holo_blue_light : android.R.color.holo_red_light));
-            btnToggleServer.setChecked(isOk);
+            btnRestartServer.setEnabled(true);
         });
 
-        btnToggleServer.setOnClickListener(v -> {
-            if (btnToggleServer.isChecked()) {
-                startService(new Intent(this, BatteryService.class));
-                android.widget.Toast.makeText(this, getString(R.string.toast_restarting), android.widget.Toast.LENGTH_SHORT).show();
-            } else {
-                stopService(new Intent(this, BatteryService.class));
-            }
+        btnRestartServer.setOnClickListener(v -> {
+            startService(new Intent(this, BatteryService.class));
+            android.widget.Toast.makeText(this, getString(R.string.toast_restarting), android.widget.Toast.LENGTH_SHORT).show();
         });
     }
 

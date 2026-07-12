@@ -35,9 +35,6 @@
     <string name="main_info_server">Le serveur TCP est en cours d\'exécution sur %1$s:%2$d.\nVous pouvez maintenant fermer cette application.</string>
     <string name="btn_restart_server">Redémarrer le serveur</string>
     <string name="main_title_stopped">Le serveur est arrêté</string>
-    
-    <string name="btn_on">ON</string>
-    <string name="btn_off">OFF</string>
     <string name="telemetry_charging">En charge</string>
     <string name="telemetry_discharging">En décharge</string>
     <string name="telemetry_ac_connected">CONNECTÉ</string>
