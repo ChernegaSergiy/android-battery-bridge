@@ -6,27 +6,20 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.BatteryManager;
 import android.os.Build;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import com.chernegasergiy.battery.R;
+import com.chernegasergiy.battery.network.TcpServer;
 
-import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-
-public class BatteryService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class BatteryService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener, TcpServer.Listener {
     private static final String TAG = "BatteryService";
-    private static final int PORT = 8765;
     private static final int NOTIF_ID = 1;
     private static final String CHANNEL_ID = "battery_service_channel";
 
-    private Thread listenerThread;
-    private ServerSocket activeServer;
-    private boolean running = true;
+    private com.chernegasergiy.battery.data.SettingsRepository settings;
+    private com.chernegasergiy.battery.data.BatteryDataProvider batteryDataProvider;
+    private TcpServer tcpServer;
 
     @Override
     public void onCreate() {
@@ -36,9 +29,6 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
         batteryDataProvider = new com.chernegasergiy.battery.data.BatteryDataProvider(this);
         settings.registerChangeListener(this);
     }
-    
-    private com.chernegasergiy.battery.data.SettingsRepository settings;
-    private com.chernegasergiy.battery.data.BatteryDataProvider batteryDataProvider;
     
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -85,17 +75,9 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
     }
 
     private void stopListener() {
-        if (activeServer != null) {
-            try {
-                activeServer.close();
-            } catch (Exception e) {
-                Log.e(TAG, "Error closing server socket", e);
-            }
-            activeServer = null;
-        }
-        if (listenerThread != null) {
-            listenerThread.interrupt();
-            listenerThread = null;
+        if (tcpServer != null) {
+            tcpServer.stop();
+            tcpServer = null;
         }
     }
 
@@ -104,53 +86,41 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
 
         final int finalPort = settings.getPort();
         final boolean allInterfaces = settings.isListenAllInterfaces();
-        final boolean debugToasts = settings.isDebugToastsEnabled();
         
-        listenerThread = new Thread(() -> {
-            try {
-                InetAddress bindAddress = InetAddress.getByName(allInterfaces ? "0.0.0.0" : "127.0.0.1");
-                Log.d(TAG, "Opening ServerSocket on " + bindAddress.getHostAddress() + ":" + finalPort);
-                try (ServerSocket server = new ServerSocket(finalPort, 50, bindAddress)) {
-                    activeServer = server;
-                    
-                    Intent statusIntent = new Intent("com.chernegasergiy.battery.SERVER_STATUS");
-                    statusIntent.putExtra("status", "OK");
-                    sendBroadcast(statusIntent);
-                    
-                    while (running && !Thread.currentThread().isInterrupted()) {
-                        try (Socket client = server.accept()) {
-                            Log.d(TAG, "Client connected: " + client.getInetAddress().getHostAddress());
-                            
-                            if (debugToasts) {
-                                final String clientIp = client.getInetAddress().getHostAddress();
-                                new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
-                                    android.widget.Toast.makeText(BatteryService.this, getString(R.string.toast_client_connected, clientIp), android.widget.Toast.LENGTH_SHORT).show();
-                                });
-                            }
+        tcpServer = new TcpServer(finalPort, allInterfaces, this);
+        tcpServer.start();
+    }
 
-                            String batteryData = batteryDataProvider.getBatteryDataJson();
-                            PrintWriter pw = new PrintWriter(client.getOutputStream(), true);
-                            pw.print(batteryData);
-                            pw.flush();
-                            Log.d(TAG, "Sent: " + batteryData);
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                if (running) {
-                    Log.e(TAG, "Error in listener", e);
-                    Intent errIntent = new Intent("com.chernegasergiy.battery.SERVER_STATUS");
-                    errIntent.putExtra("status", "ERROR");
-                    sendBroadcast(errIntent);
-                }
-            }
-        });
-        listenerThread.start();
+    @Override
+    public void onServerStarted() {
+        Intent statusIntent = new Intent("com.chernegasergiy.battery.SERVER_STATUS");
+        statusIntent.putExtra("status", "OK");
+        sendBroadcast(statusIntent);
+    }
+
+    @Override
+    public void onServerError(Exception e) {
+        Intent errIntent = new Intent("com.chernegasergiy.battery.SERVER_STATUS");
+        errIntent.putExtra("status", "ERROR");
+        sendBroadcast(errIntent);
+    }
+
+    @Override
+    public void onClientConnected(String clientIp) {
+        if (settings.isDebugToastsEnabled()) {
+            new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
+                android.widget.Toast.makeText(BatteryService.this, getString(R.string.toast_client_connected, clientIp), android.widget.Toast.LENGTH_SHORT).show();
+            });
+        }
+    }
+
+    @Override
+    public String onRequestData() {
+        return batteryDataProvider.getBatteryDataJson();
     }
 
     @Override
     public void onDestroy() {
-        running = false;
         if (settings != null) {
             settings.unregisterChangeListener(this);
         }
