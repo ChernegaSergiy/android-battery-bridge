@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PHP Battery Bridge</string>
+    <string name="pref_port_title">TCP Port</string>
+    <string name="pref_port_summary">Port number for the TCP server (default: 8765)</string>
+    
+    <string name="pref_autostart_title">Start on Boot</string>
+    <string name="pref_autostart_summary">Automatically start the background service when device boots</string>
+    
+    <string name="pref_foreground_title">Persistent Notification</string>
+    <string name="pref_foreground_summary">Run as a foreground service to prevent Android from killing it</string>
+    
+    <string name="pref_network_title">Listen on All Interfaces (0.0.0.0)</string>
+    <string name="pref_network_summary">Allow connections from other devices on the local Wi-Fi network</string>
+    
+    <string name="pref_debug_title">Debug Toasts</string>
+    <string name="pref_debug_summary">Show a popup message every time a client connects</string>
+</resources>
