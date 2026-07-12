@@ -22,6 +22,11 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     }
 
     @Override
+    protected boolean isValidFragment(String fragmentName) {
+        return true;
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
