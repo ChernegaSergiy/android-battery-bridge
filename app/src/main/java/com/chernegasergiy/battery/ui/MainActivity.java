@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
         String ip = settings.isListenAllInterfaces() ? "0.0.0.0" : "127.0.0.1";
         
         TextView tvInfo = findViewById(R.id.tvInfo);
-        tvInfo.setText(getString(R.string.main_info_server, ip, port) + "\nСкрипт моніторингу: nohup");
+        tvInfo.setText(getString(R.string.main_info_server, ip, port));
     }
 
     @Override
