@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/main_title_active"
-        android:textSize="32sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:layout_marginTop="16dp"
