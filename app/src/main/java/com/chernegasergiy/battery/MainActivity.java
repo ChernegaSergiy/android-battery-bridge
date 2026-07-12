@@ -14,6 +14,25 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    private void updateUI() {
+        android.content.SharedPreferences prefs = android.preference.PreferenceManager.getDefaultSharedPreferences(this);
+        int port = 8765;
+        try {
+            port = Integer.parseInt(prefs.getString("pref_port", "8765"));
+        } catch (NumberFormatException e) {
+            // ignore
+        }
+        
+        android.widget.TextView tvInfo = findViewById(R.id.tvInfo);
+        tvInfo.setText(getString(R.string.main_info_server, "127.0.0.1", port));
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
