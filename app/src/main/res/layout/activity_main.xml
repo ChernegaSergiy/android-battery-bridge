@@ -2,32 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#F3F3F3">
 
+    <!-- Status Block -->
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/main_title_active"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textColor="#33B5E5"
+        android:textSize="32sp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
 
     <TextView
         android:id="@+id/tvInfo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
         android:text="@string/main_info_server"
-        android:textSize="14sp" />
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginBottom="32dp" />
 
-    <Button
-        android:id="@+id/btnRestart"
+    <!-- Control Element -->
+    <ToggleButton
+        android:id="@+id/btnToggleServer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/btn_restart_server" />
+        android:layout_gravity="center"
+        android:textOn="ON"
+        android:textOff="OFF"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#33B5E5"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Data and Logs Block -->
+    <TextView
+        android:id="@+id/tvTelemetry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Заряд: 85% (Розряджається)\nТемпература: 32.0°C\nСтан: Живлення від мережі: ВІДКЛЮЧЕНО"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:lineSpacingExtra="4dp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tvLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Останнє підключення: 22:00:05 (через 127.0.0.1)"
+        android:textColor="#666666"
+        android:textSize="14sp" />
 
 </LinearLayout>

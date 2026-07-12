@@ -3,51 +3,40 @@ package com.chernegasergiy.battery.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.ToggleButton;
 import com.chernegasergiy.battery.R;
 import com.chernegasergiy.battery.service.BatteryService;
 
-public class MainActivity extends Activity implements ServerStatusObserver.OnStatusChangedListener {
-    
+public class MainActivity extends Activity {
     private ServerStatusObserver statusObserver;
+    private ToggleButton btnToggleServer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (android.os.Build.VERSION.SDK_INT >= 33) {
-            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
-            }
-        }
+        TextView tvTitle = findViewById(R.id.tvTitle);
+        btnToggleServer = findViewById(R.id.btnToggleServer);
 
-        statusObserver = new ServerStatusObserver(this, this);
-
-        startService(new Intent(this, BatteryService.class));
-
-        android.widget.Button btnRestart = findViewById(R.id.btnRestart);
-        btnRestart.setOnClickListener(v -> {
-            startService(new Intent(this, BatteryService.class));
-            android.widget.Toast.makeText(this, getString(R.string.toast_restarting), android.widget.Toast.LENGTH_SHORT).show();
+        statusObserver = new ServerStatusObserver(this, status -> {
+            boolean isOk = (status == ServerStatusObserver.STATUS_OK);
+            tvTitle.setText(isOk ? R.string.main_title_active : R.string.main_title_stopped);
+            tvTitle.setTextColor(isOk ? 0xFF33B5E5 : 0xFFFF4444);
+            btnToggleServer.setChecked(isOk);
         });
-    }
 
-    @Override
-    public void onServerStatusChanged(String status) {
-        android.widget.TextView tvTitle = findViewById(R.id.tvTitle);
-        if (ServerStatusObserver.STATUS_OK.equals(status)) {
-            tvTitle.setText(R.string.main_title_active);
-            tvTitle.setTextColor(android.graphics.Color.parseColor("#4CAF50"));
-        } else if (ServerStatusObserver.STATUS_ERROR.equals(status)) {
-            tvTitle.setText(R.string.main_title_stopped);
-            tvTitle.setTextColor(android.graphics.Color.RED);
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        statusObserver.register();
+        btnToggleServer.setOnClickListener(v -> {
+            if (btnToggleServer.isChecked()) {
+                startService(new Intent(this, BatteryService.class));
+                android.widget.Toast.makeText(this, getString(R.string.toast_restarting), android.widget.Toast.LENGTH_SHORT).show();
+            } else {
+                stopService(new Intent(this, BatteryService.class));
+            }
+        });
     }
 
     @Override
@@ -66,31 +55,29 @@ public class MainActivity extends Activity implements ServerStatusObserver.OnSta
     private void updateUI() {
         com.chernegasergiy.battery.data.SettingsRepository settings = new com.chernegasergiy.battery.data.SettingsRepository(this);
         int port = settings.getPort();
-        boolean listenAll = settings.isListenAllInterfaces();
+        String ip = settings.isListenAllInterfaces() ? "0.0.0.0" : "127.0.0.1";
         
-        String ip = listenAll ? com.chernegasergiy.battery.utils.NetworkUtils.getLocalIpAddress() : "127.0.0.1";
-        
-        android.widget.TextView tvInfo = findViewById(R.id.tvInfo);
-        tvInfo.setText(getString(R.string.main_info_server, ip, port));
+        TextView tvInfo = findViewById(R.id.tvInfo);
+        tvInfo.setText(getString(R.string.main_info_server, ip, port) + "\nСкрипт моніторингу: nohup");
     }
 
     @Override
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
         } else if (item.getItemId() == R.id.action_about) {
             new android.app.AlertDialog.Builder(this)
-                    .setTitle(R.string.about_title)
-                    .setMessage(R.string.about_message)
-                    .setPositiveButton(android.R.string.ok, null)
-                    .show();
+                .setTitle(R.string.about_title)
+                .setMessage(R.string.about_message)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
             return true;
         }
         return super.onOptionsItemSelected(item);
