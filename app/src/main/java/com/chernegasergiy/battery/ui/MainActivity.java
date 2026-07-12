@@ -53,15 +53,10 @@ public class MainActivity extends Activity {
     }
 
     private void updateUI() {
-        android.content.SharedPreferences prefs = android.preference.PreferenceManager.getDefaultSharedPreferences(this);
-        int port = 8765;
-        try {
-            port = Integer.parseInt(prefs.getString("pref_port", "8765"));
-        } catch (NumberFormatException e) {
-            // ignore
-        }
+        com.chernegasergiy.battery.data.SettingsRepository settings = new com.chernegasergiy.battery.data.SettingsRepository(this);
+        int port = settings.getPort();
+        boolean listenAll = settings.isListenAllInterfaces();
         
-        boolean listenAll = prefs.getBoolean("pref_network_all", false);
         String ip = listenAll ? com.chernegasergiy.battery.utils.NetworkUtils.getLocalIpAddress() : "127.0.0.1";
         
         android.widget.TextView tvInfo = findViewById(R.id.tvInfo);
