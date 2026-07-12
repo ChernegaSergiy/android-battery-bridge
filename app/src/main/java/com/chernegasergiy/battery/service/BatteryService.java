@@ -1,8 +1,5 @@
 package com.chernegasergiy.battery.service;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,15 +8,15 @@ import android.os.IBinder;
 import android.util.Log;
 import com.chernegasergiy.battery.R;
 import com.chernegasergiy.battery.network.TcpServer;
+import com.chernegasergiy.battery.ui.NotificationHelper;
 
 public class BatteryService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener, TcpServer.Listener {
     private static final String TAG = "BatteryService";
-    private static final int NOTIF_ID = 1;
-    private static final String CHANNEL_ID = "battery_service_channel";
 
     private com.chernegasergiy.battery.data.SettingsRepository settings;
     private com.chernegasergiy.battery.data.BatteryDataProvider batteryDataProvider;
     private TcpServer tcpServer;
+    private NotificationHelper notificationHelper;
 
     @Override
     public void onCreate() {
@@ -27,6 +24,7 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
         Log.d(TAG, "Service created");
         settings = new com.chernegasergiy.battery.data.SettingsRepository(this);
         batteryDataProvider = new com.chernegasergiy.battery.data.BatteryDataProvider(this);
+        notificationHelper = new NotificationHelper(this);
         settings.registerChangeListener(this);
     }
     
@@ -42,25 +40,7 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
 
     private void updateForegroundState() {
         if (settings.isForegroundEnabled()) {
-            NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationChannel channel = new NotificationChannel(CHANNEL_ID, getString(R.string.notif_channel_name), NotificationManager.IMPORTANCE_LOW);
-                nm.createNotificationChannel(channel);
-            }
-            Notification.Builder builder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                builder = new Notification.Builder(this, CHANNEL_ID);
-            } else {
-                builder = new Notification.Builder(this);
-            }
-            
-            Notification notification = builder
-                    .setContentTitle(getString(R.string.notif_title))
-                    .setContentText(getString(R.string.notif_text))
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .build();
-            
-            startForeground(NOTIF_ID, notification);
+            startForeground(NotificationHelper.NOTIF_ID, notificationHelper.buildForegroundNotification());
         } else {
             stopForeground(true);
         }
