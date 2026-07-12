@@ -1,9 +1,20 @@
 <?php
-$client = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-if (socket_connect($client, "127.0.0.1", 8765)) {
-    $response = socket_read($client, 4096);
-    echo $response . PHP_EOL;
-} else {
-    echo "Failed to connect to BatteryService" . PHP_EOL;
+$host = "127.0.0.1";
+$port = 8765;
+
+// You can pass the IP address and port as arguments: php test_battery.php 192.168.1.50
+if ($argc > 1) {
+    $host = $argv[1];
 }
-socket_close($client);
+if ($argc > 2) {
+    $port = (int)$argv[2];
+}
+
+$fp = @fsockopen($host, $port, $errno, $errstr, 3);
+if (!$fp) {
+    echo "Failed to connect to BatteryService: $errstr ($errno)\n";
+} else {
+    $response = fread($fp, 4096);
+    echo trim($response) . PHP_EOL;
+    fclose($fp);
+}
