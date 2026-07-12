@@ -119,7 +119,7 @@ public class BatteryService extends Service implements SharedPreferences.OnShare
                             if (prefs.getBoolean("pref_debug_toasts", false)) {
                                 final String clientIp = client.getInetAddress().getHostAddress();
                                 new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
-                                    android.widget.Toast.makeText(BatteryService.this, "Client connected: " + clientIp, android.widget.Toast.LENGTH_SHORT).show();
+                                    android.widget.Toast.makeText(BatteryService.this, getString(R.string.toast_client_connected, clientIp), android.widget.Toast.LENGTH_SHORT).show();
                                 });
                             }
 

@@ -22,4 +22,5 @@
     <string name="notif_channel_name">Фонова служба</string>
     <string name="notif_title">Battery Bridge працює</string>
     <string name="notif_text">TCP-сервер активний у фоновому режимі</string>
+    <string name="toast_client_connected">Клієнт підключився: %s</string>
 </resources>

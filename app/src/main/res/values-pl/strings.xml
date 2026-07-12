@@ -16,4 +16,5 @@
     <string name="notif_channel_name">Usługa w tle</string>
     <string name="notif_title">Battery Bridge działa</string>
     <string name="notif_text">Serwer TCP jest aktywny w tle</string>
+    <string name="toast_client_connected">Klient połączony: %s</string>
 </resources>

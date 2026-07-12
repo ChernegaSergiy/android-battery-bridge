@@ -16,4 +16,5 @@
     <string name="notif_channel_name">Hintergrunddienst</string>
     <string name="notif_title">Battery Bridge läuft</string>
     <string name="notif_text">TCP-Server ist im Hintergrund aktiv</string>
+    <string name="toast_client_connected">Client verbunden: %s</string>
 </resources>
