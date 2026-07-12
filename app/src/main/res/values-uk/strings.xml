@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PHP Battery Bridge</string>
+    <string name="pref_port_title">TCP Порт</string>
+    <string name="pref_port_summary">Номер порту для TCP-сервера (за замовчуванням: 8765)</string>
+    
+    <string name="pref_autostart_title">Автозапуск</string>
+    <string name="pref_autostart_summary">Автоматично запускати фонову службу під час увімкнення пристрою</string>
+    
+    <string name="pref_foreground_title">Постійне сповіщення (Foreground)</string>
+    <string name="pref_foreground_summary">Запустити як пріоритетну службу, щоб Android не вбив процес</string>
+    
+    <string name="pref_network_title">Слухати всі інтерфейси (0.0.0.0)</string>
+    <string name="pref_network_summary">Дозволити підключення з інших пристроїв у локальній мережі Wi-Fi</string>
+    
+    <string name="pref_debug_title">Налагоджувальні Toast-повідомлення</string>
+    <string name="pref_debug_summary">Показувати спливаюче повідомлення при кожному підключенні клієнта</string>
+
+    <string name="about_title">Про програму</string>
+    <string name="about_message">PHP Battery Bridge\n\nЛегковаговий TCP-сервер, що надає інформацію про батарею для PHP-скриптів.\n\nАвтор: Сергій Чернега\nЛіцензія: CSSM Unlimited License v2.0</string>
+
+    <string name="notif_channel_name">Фонова служба</string>
+    <string name="notif_title">Battery Bridge працює</string>
+    <string name="notif_text">TCP-сервер активний у фоновому режимі</string>
+</resources>
