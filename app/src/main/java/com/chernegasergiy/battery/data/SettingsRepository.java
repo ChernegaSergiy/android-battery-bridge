@@ -27,6 +27,10 @@ public class SettingsRepository {
         return prefs.getBoolean("pref_debug_toasts", false);
     }
     
+    public boolean isAutostartEnabled() {
+        return prefs.getBoolean("pref_autostart", false);
+    }
+    
     public boolean isForegroundEnabled() {
         return prefs.getBoolean("pref_foreground", false);
     }
