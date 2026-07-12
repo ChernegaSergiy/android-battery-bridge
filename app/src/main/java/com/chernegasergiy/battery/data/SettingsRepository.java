@@ -34,12 +34,4 @@ public class SettingsRepository {
     public boolean isForegroundEnabled() {
         return prefs.getBoolean("pref_foreground", false);
     }
-
-    public void registerChangeListener(SharedPreferences.OnSharedPreferenceChangeListener listener) {
-        prefs.registerOnSharedPreferenceChangeListener(listener);
-    }
-
-    public void unregisterChangeListener(SharedPreferences.OnSharedPreferenceChangeListener listener) {
-        prefs.unregisterOnSharedPreferenceChangeListener(listener);
-    }
 }
