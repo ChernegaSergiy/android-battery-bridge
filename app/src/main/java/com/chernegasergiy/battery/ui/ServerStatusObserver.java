@@ -8,6 +8,7 @@ import android.os.Build;
 
 public class ServerStatusObserver {
     public static final String ACTION_SERVER_STATUS = "com.chernegasergiy.battery.SERVER_STATUS";
+    public static final String ACTION_REQUEST_STATUS = "com.chernegasergiy.battery.REQUEST_STATUS";
     public static final String EXTRA_STATUS = "status";
     public static final String STATUS_OK = "OK";
     public static final String STATUS_ERROR = "ERROR";

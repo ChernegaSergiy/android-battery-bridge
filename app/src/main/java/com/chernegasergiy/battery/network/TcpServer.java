@@ -88,4 +88,8 @@ public class TcpServer {
             listenerThread = null;
         }
     }
+
+    public boolean isRunning() {
+        return running && activeServer != null && !activeServer.isClosed();
+    }
 }

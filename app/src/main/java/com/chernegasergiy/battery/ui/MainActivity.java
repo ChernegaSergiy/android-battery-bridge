@@ -24,6 +24,12 @@ public class MainActivity extends Activity implements ServerStatusObserver.OnSta
         statusObserver = new ServerStatusObserver(this, this);
 
         startService(new Intent(this, BatteryService.class));
+
+        android.widget.Button btnRestart = findViewById(R.id.btnRestart);
+        btnRestart.setOnClickListener(v -> {
+            startService(new Intent(this, BatteryService.class));
+            android.widget.Toast.makeText(this, "Restarting...", android.widget.Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override
@@ -33,7 +39,7 @@ public class MainActivity extends Activity implements ServerStatusObserver.OnSta
             tvTitle.setText(R.string.main_title_active);
             tvTitle.setTextColor(android.graphics.Color.parseColor("#4CAF50"));
         } else if (ServerStatusObserver.STATUS_ERROR.equals(status)) {
-            tvTitle.setText("Error: Port is busy!");
+            tvTitle.setText(R.string.main_title_stopped);
             tvTitle.setTextColor(android.graphics.Color.RED);
         }
     }
@@ -45,15 +51,16 @@ public class MainActivity extends Activity implements ServerStatusObserver.OnSta
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        statusObserver.unregister();
+    protected void onResume() {
+        super.onResume();
+        sendBroadcast(new Intent(ServerStatusObserver.ACTION_REQUEST_STATUS));
+        updateUI();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        updateUI();
+    protected void onStop() {
+        super.onStop();
+        statusObserver.unregister();
     }
 
     private void updateUI() {

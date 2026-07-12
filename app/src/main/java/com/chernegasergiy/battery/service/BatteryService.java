@@ -32,6 +32,12 @@ public class BatteryService extends Service implements TcpServer.Listener {
                 } else if ("pref_foreground".equals(key)) {
                     updateForegroundState();
                 }
+            } else if (com.chernegasergiy.battery.ui.ServerStatusObserver.ACTION_REQUEST_STATUS.equals(intent.getAction())) {
+                if (tcpServer != null && tcpServer.isRunning()) {
+                    onServerStarted();
+                } else {
+                    onServerError(new Exception("Server is not running"));
+                }
             }
         }
     };
@@ -44,7 +50,10 @@ public class BatteryService extends Service implements TcpServer.Listener {
         batteryDataProvider = new com.chernegasergiy.battery.data.BatteryDataProvider(this);
         notificationHelper = new NotificationHelper(this);
         
-        IntentFilter filter = new IntentFilter(SettingsActivity.ACTION_SETTINGS_CHANGED);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(SettingsActivity.ACTION_SETTINGS_CHANGED);
+        filter.addAction(com.chernegasergiy.battery.ui.ServerStatusObserver.ACTION_REQUEST_STATUS);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(settingsReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
