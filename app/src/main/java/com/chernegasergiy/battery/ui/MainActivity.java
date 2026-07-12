@@ -1,18 +1,37 @@
 package com.chernegasergiy.battery.ui;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import com.chernegasergiy.battery.R;
+import com.chernegasergiy.battery.data.BatteryDataProvider;
+import com.chernegasergiy.battery.data.BatteryInfo;
 import com.chernegasergiy.battery.service.BatteryService;
 
 public class MainActivity extends Activity {
     private ServerStatusObserver statusObserver;
     private ToggleButton btnToggleServer;
+    private TextView tvTelemetry;
+    private TextView tvLog;
+    private BatteryDataProvider batteryDataProvider;
+
+    private final BroadcastReceiver dataReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
+                updateTelemetry();
+            } else if ("com.chernegasergiy.battery.ACTION_NEW_LOG".equals(intent.getAction())) {
+                updateLog();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +40,9 @@ public class MainActivity extends Activity {
 
         TextView tvTitle = findViewById(R.id.tvTitle);
         btnToggleServer = findViewById(R.id.btnToggleServer);
+        tvTelemetry = findViewById(R.id.tvTelemetry);
+        tvLog = findViewById(R.id.tvLog);
+        batteryDataProvider = new BatteryDataProvider(this);
 
         statusObserver = new ServerStatusObserver(this, status -> {
             boolean isOk = (status == ServerStatusObserver.STATUS_OK);
@@ -43,7 +65,26 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         sendBroadcast(new Intent(ServerStatusObserver.ACTION_REQUEST_STATUS));
+        
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_BATTERY_CHANGED);
+        filter.addAction("com.chernegasergiy.battery.ACTION_NEW_LOG");
+        
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(dataReceiver, filter, Context.RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(dataReceiver, filter);
+        }
+        
         updateUI();
+        updateTelemetry();
+        updateLog();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(dataReceiver);
     }
 
     @Override
@@ -59,6 +100,21 @@ public class MainActivity extends Activity {
         
         TextView tvInfo = findViewById(R.id.tvInfo);
         tvInfo.setText(getString(R.string.main_info_server, ip, port));
+    }
+
+    private void updateTelemetry() {
+        BatteryInfo info = batteryDataProvider.getBatteryInfo();
+        String chargeState = info.isCharging ? "Заряджається" : "Розряджається";
+        String acPowerState = info.isCharging ? "ПІДКЛЮЧЕНО" : "ВІДКЛЮЧЕНО";
+        
+        String telemetry = String.format(java.util.Locale.US, "Заряд: %d%% (%s)\nТемпература: %.1f°C\nСтан: Живлення від мережі: %s",
+                info.percent, chargeState, info.temperatureCelsius, acPowerState);
+        tvTelemetry.setText(telemetry);
+    }
+
+    private void updateLog() {
+        String lastLog = getSharedPreferences("logs", Context.MODE_PRIVATE).getString("last_log", "Останнє підключення: Немає даних");
+        tvLog.setText(lastLog);
     }
 
     @Override

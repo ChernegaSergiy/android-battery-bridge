@@ -36,4 +36,23 @@ public class BatteryDataProvider {
             batteryPct, isCharging ? 1 : 0, health, temperature / 10, voltage, technology != null ? technology : ""
         );
     }
+
+    public BatteryInfo getBatteryInfo() {
+        Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        if (batteryIntent == null) {
+            return new BatteryInfo(0, false, 0.0f);
+        }
+
+        int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, 100);
+        int batteryPct = level * 100 / scale;
+
+        int status = batteryIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        boolean isCharging = (status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                             status == BatteryManager.BATTERY_STATUS_FULL);
+
+        int temperature = batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
+
+        return new BatteryInfo(batteryPct, isCharging, temperature / 10.0f);
+    }
 }
