@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.PowerManager;
+import android.net.wifi.WifiManager;
 import android.util.Log;
 import com.chernegasergiy.battery.R;
 import com.chernegasergiy.battery.network.TcpServer;
@@ -20,6 +22,8 @@ public class BatteryService extends Service implements TcpServer.Listener {
     private com.chernegasergiy.battery.data.BatteryDataProvider batteryDataProvider;
     private TcpServer tcpServer;
     private NotificationHelper notificationHelper;
+    private PowerManager.WakeLock wakeLock;
+    private WifiManager.WifiLock wifiLock;
 
     private final BroadcastReceiver settingsReceiver = new BroadcastReceiver() {
         @Override
@@ -31,6 +35,8 @@ public class BatteryService extends Service implements TcpServer.Listener {
                     startListener();
                 } else if ("pref_foreground".equals(key)) {
                     updateForegroundState();
+                } else if ("pref_wakelock".equals(key)) {
+                    updateLocksState();
                 }
             } else if (com.chernegasergiy.battery.ui.ServerStatusObserver.ACTION_REQUEST_STATUS.equals(intent.getAction())) {
                 if (tcpServer != null && tcpServer.isRunning()) {
@@ -69,10 +75,51 @@ public class BatteryService extends Service implements TcpServer.Listener {
         }
     }
 
+    private void updateLocksState() {
+        if (settings.isWakeLockEnabled()) {
+            acquireLocks();
+        } else {
+            releaseLocks();
+        }
+    }
+
+    private void acquireLocks() {
+        if (wakeLock == null) {
+            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            if (pm != null) {
+                wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BatteryBridge::WakeLock");
+                wakeLock.acquire();
+                Log.d(TAG, "WakeLock acquired");
+            }
+        }
+        if (wifiLock == null) {
+            WifiManager wm = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            if (wm != null) {
+                wifiLock = wm.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, "BatteryBridge::WifiLock");
+                wifiLock.acquire();
+                Log.d(TAG, "WifiLock acquired");
+            }
+        }
+    }
+
+    private void releaseLocks() {
+        if (wakeLock != null && wakeLock.isHeld()) {
+            wakeLock.release();
+            wakeLock = null;
+            Log.d(TAG, "WakeLock released");
+        }
+        if (wifiLock != null && wifiLock.isHeld()) {
+            wifiLock.release();
+            wifiLock = null;
+            Log.d(TAG, "WifiLock released");
+        }
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "Service started");
         updateForegroundState();
+        updateLocksState();
         startListener();
         return Service.START_STICKY;
     }
@@ -126,6 +173,7 @@ public class BatteryService extends Service implements TcpServer.Listener {
     public void onDestroy() {
         unregisterReceiver(settingsReceiver);
         stopListener();
+        releaseLocks();
         super.onDestroy();
         Log.d(TAG, "Service destroyed");
     }
