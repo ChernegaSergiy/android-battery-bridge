@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PHP Battery Bridge</string>
-    <string name="pref_port_title">TCP Порт</string>
+    <string name="pref_port_title">TCP-порт</string>
     <string name="pref_port_summary">Номер порту для TCP-сервера (за замовчуванням: 8765)</string>
     
     <string name="pref_autostart_title">Автозапуск</string>
