@@ -65,7 +65,9 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 
 ## Usage
 
-After installing the APK, open the app once to register it in the launcher. The app will listen for broadcasts from PHP extensions.
+After installing the APK, open the app once to register it in the launcher. The app will start a background service listening for TCP connections on port 8765.
+
+This bridge is primarily designed to be consumed by the [battery_info PHP extension](https://github.com/ChernegaSergiy/battery-php-ext), which will automatically connect to this port to read the device's battery status when running in CLI environments like Termux.
 
 ## Contributing
 
