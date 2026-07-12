@@ -4,46 +4,44 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import com.chernegasergiy.battery.R;
-import com.chernegasergiy.battery.BatteryService;
+import com.chernegasergiy.battery.service.BatteryService;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements ServerStatusObserver.OnStatusChangedListener {
+    
+    private ServerStatusObserver statusObserver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        statusObserver = new ServerStatusObserver(this, this);
+
         startService(new Intent(this, BatteryService.class));
     }
 
-    private android.content.BroadcastReceiver statusReceiver = new android.content.BroadcastReceiver() {
-        @Override
-        public void onReceive(android.content.Context context, Intent intent) {
-            String status = intent.getStringExtra("status");
-            android.widget.TextView tvTitle = findViewById(R.id.tvTitle);
-            if ("OK".equals(status)) {
-                tvTitle.setText(R.string.main_title_active);
-                tvTitle.setTextColor(android.graphics.Color.parseColor("#4CAF50"));
-            } else if ("ERROR".equals(status)) {
-                tvTitle.setText("Error: Port is busy!");
-                tvTitle.setTextColor(android.graphics.Color.RED);
-            }
+    @Override
+    public void onServerStatusChanged(String status) {
+        android.widget.TextView tvTitle = findViewById(R.id.tvTitle);
+        if (ServerStatusObserver.STATUS_OK.equals(status)) {
+            tvTitle.setText(R.string.main_title_active);
+            tvTitle.setTextColor(android.graphics.Color.parseColor("#4CAF50"));
+        } else if (ServerStatusObserver.STATUS_ERROR.equals(status)) {
+            tvTitle.setText("Error: Port is busy!");
+            tvTitle.setTextColor(android.graphics.Color.RED);
         }
-    };
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (android.os.Build.VERSION.SDK_INT >= 33) {
-            registerReceiver(statusReceiver, new android.content.IntentFilter("com.chernegasergiy.battery.SERVER_STATUS"), android.content.Context.RECEIVER_NOT_EXPORTED);
-        } else {
-            registerReceiver(statusReceiver, new android.content.IntentFilter("com.chernegasergiy.battery.SERVER_STATUS"));
-        }
+        statusObserver.register();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        unregisterReceiver(statusReceiver);
+        statusObserver.unregister();
     }
 
     @Override
