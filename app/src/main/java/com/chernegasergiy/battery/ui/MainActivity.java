@@ -1,8 +1,10 @@
-package com.chernegasergiy.battery;
+package com.chernegasergiy.battery.ui;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import com.chernegasergiy.battery.R;
+import com.chernegasergiy.battery.BatteryService;
 
 public class MainActivity extends Activity {
     @Override

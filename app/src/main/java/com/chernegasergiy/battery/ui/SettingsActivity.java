@@ -1,7 +1,8 @@
-package com.chernegasergiy.battery;
+package com.chernegasergiy.battery.ui;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import com.chernegasergiy.battery.R;
 
 public class SettingsActivity extends PreferenceActivity {
     @Override
