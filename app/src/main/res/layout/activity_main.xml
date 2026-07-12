@@ -7,6 +7,7 @@
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="PHP Battery Bridge is active"
@@ -14,6 +15,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/tvInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
