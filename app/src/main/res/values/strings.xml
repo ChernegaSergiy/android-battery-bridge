@@ -17,5 +17,5 @@
     <string name="pref_debug_summary">Show a popup message every time a client connects</string>
 
     <string name="about_title">About</string>
-    <string name="about_message">PHP Battery Bridge\n\nA lightweight TCP server providing battery info for PHP scripts.\n\nAuthor: Serhii Cherneha</string>
+    <string name="about_message">PHP Battery Bridge\n\nA lightweight TCP server providing battery info for PHP scripts.\n\nAuthor: Serhii Cherneha\nLicense: CSSM Unlimited License v2.0</string>
 </resources>
