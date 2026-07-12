@@ -1,4 +1,4 @@
-package com.chernegasergiy.battery;
+package com.chernegasergiy.battery.service;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -6,10 +6,13 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.BatteryManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import com.chernegasergiy.battery.R;
+
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;

@@ -24,7 +24,7 @@
             android:parentActivityName=".ui.MainActivity" />
 
         <service 
-            android:name=".BatteryService" 
+            android:name=".service.BatteryService" 
             android:exported="false"
             android:foregroundServiceType="dataSync" />
 
