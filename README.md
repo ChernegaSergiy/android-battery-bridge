@@ -14,9 +14,20 @@ This implements a direct TCP Server approach:
 
 ## Components
 
-- **MainActivity** - Minimal UI to register the app in launcher
-- **BatteryService** - A background service that hosts the TCP server and provides battery data.
-- **BatteryReceiver** - (Legacy) Receives broadcasts and returns battery data via reverse socket connection.
+- **ui**
+  - **MainActivity** — minimal UI to monitor server status
+  - **SettingsActivity** — handles app configuration and broadcasts changes
+  - **ServerStatusObserver** — listens to background service state
+  - **NotificationHelper** — manages foreground service notifications
+- **service**
+  - **BatteryService** — background orchestrator that binds the server and data provider
+- **network**
+  - **TcpServer** — pure socket logic that accepts client connections
+- **data**
+  - **BatteryDataProvider** — extracts and formats battery telemetry
+  - **SettingsRepository** — encapsulates `SharedPreferences` access
+- **receiver**
+  - **BootReceiver** — automatically starts the service on device boot
 
 ## IPC Protocol
 
