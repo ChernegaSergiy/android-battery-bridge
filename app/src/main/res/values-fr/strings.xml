@@ -11,6 +11,9 @@
     <string name="pref_network_summary">Autoriser les connexions d\'autres appareils sur le réseau Wi-Fi local</string>
     <string name="pref_debug_title">Notifications de débogage</string>
     <string name="pref_debug_summary">Afficher un message contextuel à chaque connexion client</string>
+    <string name="pref_cat_connection">Connexion</string>
+    <string name="pref_cat_background">Exécution en arrière-plan</string>
+    <string name="pref_cat_developer">Options pour les développeurs</string>
     <string name="about_title">À propos</string>
     <string name="about_message">PHP Battery Bridge\n\nServeur TCP léger fournissant des infos sur la batterie pour les scripts PHP.\n\nAuteur : Serhii Cherneha\nLicence : CSSM Unlimited License v2.0</string>
     <string name="notif_channel_name">Service en arrière-plan</string>

@@ -11,6 +11,9 @@
     <string name="pref_network_summary">Zezwalaj na połączenia z innych urządzeń w sieci Wi-Fi</string>
     <string name="pref_debug_title">Powiadomienia Toast</string>
     <string name="pref_debug_summary">Pokaż wyskakujące powiadomienie przy każdym połączeniu klienta</string>
+    <string name="pref_cat_connection">Połączenie</string>
+    <string name="pref_cat_background">Działanie w tle</string>
+    <string name="pref_cat_developer">Opcje programisty</string>
     <string name="about_title">O programie</string>
     <string name="about_message">PHP Battery Bridge\n\nLekki serwer TCP dostarczający informacje o baterii dla skryptów PHP.\n\nAutor: Serhii Cherneha\nLicencja: CSSM Unlimited License v2.0</string>
     <string name="notif_channel_name">Usługa w tle</string>

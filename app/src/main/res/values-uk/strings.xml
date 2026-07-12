@@ -13,8 +13,12 @@
     <string name="pref_network_title">Слухати всі інтерфейси (0.0.0.0)</string>
     <string name="pref_network_summary">Дозволити підключення з інших пристроїв у локальній мережі Wi-Fi</string>
     
-    <string name="pref_debug_title">Налагоджувальні Toast-повідомлення</string>
+    <string name="pref_debug_title">Налагоджувальні сповіщення</string>
     <string name="pref_debug_summary">Показувати спливаюче повідомлення при кожному підключенні клієнта</string>
+
+    <string name="pref_cat_connection">З\'єднання</string>
+    <string name="pref_cat_background">Фонове виконання</string>
+    <string name="pref_cat_developer">Опції розробника</string>
 
     <string name="about_title">Про програму</string>
     <string name="about_message">PHP Battery Bridge\n\nЛегковаговий TCP-сервер, що надає інформацію про батарею для PHP-скриптів.\n\nАвтор: Сергій Чернега\nЛіцензія: CSSM Unlimited License v2.0</string>

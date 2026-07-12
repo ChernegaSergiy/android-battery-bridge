@@ -11,6 +11,9 @@
     <string name="pref_network_summary">允许本地Wi-Fi网络中其他设备的连接</string>
     <string name="pref_debug_title">调试提示</string>
     <string name="pref_debug_summary">每次客户端连接时显示弹窗消息</string>
+    <string name="pref_cat_connection">连接</string>
+    <string name="pref_cat_background">后台执行</string>
+    <string name="pref_cat_developer">开发者选项</string>
     <string name="about_title">关于</string>
     <string name="about_message">PHP Battery Bridge\n\n为PHP脚本提供电池信息的轻量级TCP服务器。\n\n作者: Serhii Cherneha\n许可: CSSM Unlimited License v2.0</string>
     <string name="notif_channel_name">后台服务</string>
