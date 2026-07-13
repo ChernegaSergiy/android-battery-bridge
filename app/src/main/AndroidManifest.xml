@@ -10,7 +10,7 @@
 
     <application
         android:label="PHP Battery Bridge"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@android:drawable/ic_lock_idle_low_battery"
         android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
 
         <activity android:name=".ui.MainActivity" android:exported="true">
