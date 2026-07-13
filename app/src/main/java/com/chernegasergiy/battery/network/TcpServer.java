@@ -30,10 +30,18 @@ public class TcpServer {
     }
 
     public void start() {
+        Thread oldThread = listenerThread;
         stop();
         running = true;
         
         listenerThread = new Thread(() -> {
+            if (oldThread != null) {
+                try {
+                    oldThread.join(2000); // Properly wait for old thread to release resources
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
             try {
                 InetAddress bindAddress = InetAddress.getByName(allInterfaces ? "0.0.0.0" : "127.0.0.1");
                 Log.d(TAG, "Opening ServerSocket on " + bindAddress.getHostAddress() + ":" + port);
