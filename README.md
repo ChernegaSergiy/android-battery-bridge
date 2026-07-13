@@ -4,6 +4,16 @@
 
 A specialized Android application that exposes real-time battery information to PHP extensions via IPC. It implements a simple TCP Socket Server and sends battery data (level, charging status, health, temperature, voltage, technology) in JSON format when a client connects.
 
+## Screenshots
+
+| Dashboard & Terminal | Settings |
+| :---: | :---: |
+| ![Dashboard](docs/images/01-dashboard.png) | ![Settings](docs/images/02-settings.png) |
+| **IP Whitelist** | **Quick Settings Tile** |
+| ![IP Whitelist](docs/images/03-whitelist.png) | ![Quick Settings Tile](docs/images/04-quick-settings.png) |
+| **Persistent Notification** | **About Dialog** |
+| ![Persistent Notification](docs/images/05-notification.png) | ![About Dialog](docs/images/06-about.png) |
+
 ## Architecture
 
 This implements a direct TCP Server approach:
