@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/action_toggle_server"
+        android:title="Server"
+        android:actionLayout="@layout/action_switch"
+        android:showAsAction="always" />
+
+    <item
         android:id="@+id/action_about"
         android:title="@string/menu_about"
         android:orderInCategory="90"

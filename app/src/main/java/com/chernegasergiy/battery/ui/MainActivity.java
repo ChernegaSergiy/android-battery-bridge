@@ -17,12 +17,14 @@ import com.chernegasergiy.battery.service.BatteryService;
 
 public class MainActivity extends Activity {
     private ServerStatusObserver statusObserver;
-    private Button btnRestartServer;
-    private TextView tvCharge;
+    private android.widget.Switch switchServer;
+    private TextView tvChargeLarge;
+    private TextView tvChargeState;
     private TextView tvTemp;
     private TextView tvAcPower;
     private TextView tvLog;
     private BatteryDataProvider batteryDataProvider;
+    private boolean isProgrammaticChange = false;
 
     private final BroadcastReceiver dataReceiver = new BroadcastReceiver() {
         @Override
@@ -40,25 +42,24 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView tvTitle = findViewById(R.id.tvTitle);
-        btnRestartServer = findViewById(R.id.btnRestartServer);
-        tvCharge = findViewById(R.id.tvCharge);
+        tvChargeLarge = findViewById(R.id.tvChargeLarge);
+        tvChargeState = findViewById(R.id.tvChargeState);
         tvTemp = findViewById(R.id.tvTemp);
         tvAcPower = findViewById(R.id.tvAcPower);
         tvLog = findViewById(R.id.tvLog);
         batteryDataProvider = new BatteryDataProvider(this);
 
+        if (getActionBar() != null) {
+            getActionBar().setTitle(R.string.app_name);
+        }
+
         statusObserver = new ServerStatusObserver(this, status -> {
             boolean isOk = ServerStatusObserver.STATUS_OK.equals(status);
-            tvTitle.setText(isOk ? R.string.main_title_active : R.string.main_title_stopped);
-            tvTitle.setTextColor(getResources().getColor(isOk ? android.R.color.holo_blue_light : android.R.color.holo_red_light));
-            btnRestartServer.setEnabled(true);
-        });
-
-        btnRestartServer.setOnClickListener(v -> {
-            btnRestartServer.setEnabled(false);
-            startService(new Intent(this, BatteryService.class));
-            android.widget.Toast.makeText(this, getString(R.string.toast_restarting), android.widget.Toast.LENGTH_SHORT).show();
+            if (switchServer != null) {
+                isProgrammaticChange = true;
+                switchServer.setChecked(isOk);
+                isProgrammaticChange = false;
+            }
         });
     }
 
@@ -105,8 +106,9 @@ public class MainActivity extends Activity {
         int port = settings.getPort();
         String ip = settings.isListenAllInterfaces() ? "0.0.0.0" : "127.0.0.1";
         
-        TextView tvInfo = findViewById(R.id.tvInfo);
-        tvInfo.setText(getString(R.string.main_info_server, ip, port));
+        if (getActionBar() != null) {
+            getActionBar().setSubtitle(ip + ":" + port);
+        }
     }
 
     private void updateTelemetry() {
@@ -114,8 +116,9 @@ public class MainActivity extends Activity {
         String chargeState = getString(info.isCharging ? R.string.telemetry_charging : R.string.telemetry_discharging);
         String acPowerState = getString(info.isCharging ? R.string.telemetry_ac_connected : R.string.telemetry_ac_disconnected);
         
-        if (tvCharge != null) {
-            tvCharge.setText(info.percent + "% (" + chargeState + ")");
+        if (tvChargeLarge != null) {
+            tvChargeLarge.setText(info.percent + "%");
+            tvChargeState.setText(chargeState);
             tvTemp.setText(String.format(java.util.Locale.US, "%.1f°C", info.temperatureCelsius));
             tvAcPower.setText(acPowerState);
         }
@@ -124,12 +127,33 @@ public class MainActivity extends Activity {
     private void updateLog() {
         android.content.SharedPreferences prefs = getSharedPreferences("logs", Context.MODE_PRIVATE);
         String logs = prefs.getString("console_output", "");
-        tvLog.setText(logs);
+        if (tvLog != null) {
+            tvLog.setText(logs);
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        
+        MenuItem toggleItem = menu.findItem(R.id.action_toggle_server);
+        if (toggleItem != null && toggleItem.getActionView() != null) {
+            switchServer = toggleItem.getActionView().findViewById(R.id.switchServer);
+            if (switchServer != null) {
+                switchServer.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    if (isProgrammaticChange) return;
+                    
+                    if (isChecked) {
+                        startService(new Intent(MainActivity.this, BatteryService.class));
+                    } else {
+                        stopService(new Intent(MainActivity.this, BatteryService.class));
+                    }
+                });
+                // Request current status to set the switch correctly
+                sendBroadcast(new Intent(ServerStatusObserver.ACTION_REQUEST_STATUS).setPackage(getPackageName()));
+            }
+        }
+        
         return true;
     }
 
