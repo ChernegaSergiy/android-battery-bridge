@@ -47,7 +47,7 @@ public class NotificationHelper {
         return builder
                 .setContentTitle(context.getString(R.string.notif_title))
                 .setContentText(context.getString(R.string.notif_text))
-                .setSmallIcon(android.R.drawable.sym_def_app_icon)
+                .setSmallIcon(android.R.drawable.stat_sys_battery_100)
                 .setOngoing(true)
                 .build();
     }
