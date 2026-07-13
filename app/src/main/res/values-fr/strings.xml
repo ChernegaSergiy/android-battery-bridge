@@ -18,6 +18,8 @@
     
     <string name="pref_network_title">Écouter sur toutes les interfaces (0.0.0.0)</string>
     <string name="pref_network_summary">Autoriser les connexions d\'autres appareils sur le réseau Wi-Fi local</string>
+    <string name="pref_whitelist_title">Adresses IP autorisées (Liste blanche)</string>
+    <string name="pref_whitelist_summary">Seules ces adresses IP peuvent se connecter (séparées par des virgules). Laissez vide pour tout autoriser.</string>
     
     <string name="pref_debug_title">Notifications de débogage</string>
     <string name="pref_debug_summary">Afficher un message contextuel à chaque connexion client</string>

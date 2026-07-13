@@ -18,6 +18,8 @@
     
     <string name="pref_network_title">Nasłuchuj na wszystkich interfejsach (0.0.0.0)</string>
     <string name="pref_network_summary">Zezwalaj na połączenia z innych urządzeń w sieci Wi-Fi</string>
+    <string name="pref_whitelist_title">Dozwolone IP (Biała lista)</string>
+    <string name="pref_whitelist_summary">Tylko te IP mogą się łączyć (oddzielone przecinkami). Pozostaw puste, aby zezwolić wszystkim.</string>
     
     <string name="pref_debug_title">Powiadomienia Toast</string>
     <string name="pref_debug_summary">Pokaż wyskakujące powiadomienie przy każdym połączeniu klienta</string>

@@ -18,6 +18,8 @@
     
     <string name="pref_network_title">Escuchar en todas las interfaces (0.0.0.0)</string>
     <string name="pref_network_summary">Permitir conexiones desde otros dispositivos en la red Wi-Fi</string>
+    <string name="pref_whitelist_title">IP permitidas (Lista blanca)</string>
+    <string name="pref_whitelist_summary">Solo estas IP pueden conectarse (separadas por comas). Dejar en blanco para permitir todas.</string>
     
     <string name="pref_debug_title">Notificaciones de depuración</string>
     <string name="pref_debug_summary">Mostrar mensaje emergente cada vez que se conecte un cliente</string>

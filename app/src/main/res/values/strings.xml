@@ -18,6 +18,8 @@
     
     <string name="pref_network_title">Listen on All Interfaces (0.0.0.0)</string>
     <string name="pref_network_summary">Allow connections from other devices on the local Wi-Fi network</string>
+    <string name="pref_whitelist_title">Allowed IPs (Whitelist)</string>
+    <string name="pref_whitelist_summary">Only these IPs can connect (comma separated). Leave empty to allow all.</string>
     
     <string name="pref_debug_title">Debug Toasts</string>
     <string name="pref_debug_summary">Show a popup message every time a client connects</string>

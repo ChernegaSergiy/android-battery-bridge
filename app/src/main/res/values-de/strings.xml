@@ -18,6 +18,8 @@
     
     <string name="pref_network_title">Auf allen Schnittstellen hören (0.0.0.0)</string>
     <string name="pref_network_summary">Verbindungen von anderen Geräten im lokalen WLAN zulassen</string>
+    <string name="pref_whitelist_title">Erlaubte IPs (Whitelist)</string>
+    <string name="pref_whitelist_summary">Nur diese IPs können sich verbinden (kommagetrennt). Leer lassen, um alle zuzulassen.</string>
     
     <string name="pref_debug_title">Debug-Benachrichtigungen</string>
     <string name="pref_debug_summary">Popup-Nachricht bei jeder Client-Verbindung anzeigen</string>

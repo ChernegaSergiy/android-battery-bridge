@@ -14,6 +14,12 @@
             android:title="@string/pref_network_title"
             android:summary="@string/pref_network_summary"
             android:defaultValue="false" />
+
+        <EditTextPreference
+            android:key="pref_whitelist"
+            android:title="@string/pref_whitelist_title"
+            android:summary="@string/pref_whitelist_summary"
+            android:defaultValue="" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_cat_background">

@@ -18,6 +18,8 @@
     
     <string name="pref_network_title">Слухати всі інтерфейси (0.0.0.0)</string>
     <string name="pref_network_summary">Дозволити підключення з інших пристроїв у локальній мережі Wi-Fi</string>
+    <string name="pref_whitelist_title">Дозволені IP (Білий список)</string>
+    <string name="pref_whitelist_summary">Лише ці IP можуть підключатися (через кому). Залиште порожнім, щоб дозволити всім.</string>
     
     <string name="pref_debug_title">Налагоджувальні сповіщення</string>
     <string name="pref_debug_summary">Показувати спливаюче повідомлення при кожному підключенні клієнта</string>

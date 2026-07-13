@@ -18,6 +18,8 @@
     
     <string name="pref_network_title">监听所有接口 (0.0.0.0)</string>
     <string name="pref_network_summary">允许本地Wi-Fi网络中其他设备的连接</string>
+    <string name="pref_whitelist_title">允许的 IP (白名单)</string>
+    <string name="pref_whitelist_summary">只有这些IP可以连接（用逗号分隔）。留空以允许所有。</string>
     
     <string name="pref_debug_title">调试提示</string>
     <string name="pref_debug_summary">每次客户端连接时显示弹窗消息</string>
