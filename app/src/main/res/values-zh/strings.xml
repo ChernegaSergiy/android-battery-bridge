@@ -30,13 +30,10 @@
     <string name="notif_title">Battery Bridge 正在运行</string>
     <string name="notif_text">TCP服务器正在后台运行</string>
     <string name="toast_client_connected">客户端已连接: %s</string>
-    <string name="toast_restarting">正在重启...</string>
     <string name="telemetry_charging">充电中</string>
     <string name="telemetry_discharging">放电中</string>
     <string name="telemetry_ac_connected">已连接</string>
     <string name="telemetry_ac_disconnected">已断开</string>
-    <string name="log_format">最后连接: %1$s (来自 %2$s)</string>
-    <string name="log_no_data">最后连接: 暂无数据</string>
     
     <string name="menu_about">关于</string>
     <string name="menu_settings">设置</string>

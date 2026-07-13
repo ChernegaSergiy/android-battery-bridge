@@ -30,13 +30,10 @@
     <string name="notif_title">Battery Bridge is running</string>
     <string name="notif_text">TCP server is active in the background</string>
     <string name="toast_client_connected">Client connected: %s</string>
-    <string name="toast_restarting">Restarting...</string>
     <string name="telemetry_charging">Charging</string>
     <string name="telemetry_discharging">Discharging</string>
     <string name="telemetry_ac_connected">CONNECTED</string>
     <string name="telemetry_ac_disconnected">DISCONNECTED</string>
-    <string name="log_format">Last connection: %1$s (via %2$s)</string>
-    <string name="log_no_data">Last connection: No data</string>
     
     <string name="main_header_telemetry">BATTERY DATA</string>
     <string name="main_header_logs">CONNECTION LOGS</string>

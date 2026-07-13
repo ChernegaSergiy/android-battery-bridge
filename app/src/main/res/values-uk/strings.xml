@@ -30,13 +30,10 @@
     <string name="notif_title">Battery Bridge працює</string>
     <string name="notif_text">TCP-сервер активний у фоновому режимі</string>
     <string name="toast_client_connected">Клієнт підключився: %s</string>
-    <string name="toast_restarting">Перезапуск...</string>
     <string name="telemetry_charging">Заряджається</string>
     <string name="telemetry_discharging">Розряджається</string>
     <string name="telemetry_ac_connected">ПІДКЛЮЧЕНО</string>
     <string name="telemetry_ac_disconnected">ВІДКЛЮЧЕНО</string>
-    <string name="log_format">Останнє підключення: %1$s (через %2$s)</string>
-    <string name="log_no_data">Останнє підключення: Немає даних</string>
     
     <string name="main_header_telemetry">ДАНІ АКУМУЛЯТОРА</string>
     <string name="main_header_logs">ЛОГИ ПІДКЛЮЧЕННЯ</string>
