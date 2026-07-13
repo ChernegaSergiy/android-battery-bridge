@@ -2,7 +2,7 @@
 
 [![Build APK](https://github.com/ChernegaSergiy/android-battery-bridge/actions/workflows/build.yml/badge.svg)](https://github.com/ChernegaSergiy/android-battery-bridge/actions/workflows/build.yml)
 
-A specialized Android application that exposes real-time battery information to PHP extensions via IPC. It implements a simple TCP Socket Server and sends battery data (level, charging status, health, temperature, voltage, technology) in JSON format when a client connects. This bridge is designed for PHP applications running on Android (like Termux) that need to monitor or react to battery state changes.
+A specialized Android application that exposes real-time battery information to PHP extensions via IPC. It implements a simple TCP Socket Server and sends battery data (level, charging status, health, temperature, voltage, technology) in JSON format when a client connects.
 
 ## Architecture
 
