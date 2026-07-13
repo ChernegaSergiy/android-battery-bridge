@@ -37,7 +37,9 @@ public class TcpServer {
             try {
                 InetAddress bindAddress = InetAddress.getByName(allInterfaces ? "0.0.0.0" : "127.0.0.1");
                 Log.d(TAG, "Opening ServerSocket on " + bindAddress.getHostAddress() + ":" + port);
-                try (ServerSocket server = new ServerSocket(port, 50, bindAddress)) {
+                try (ServerSocket server = new ServerSocket()) {
+                    server.setReuseAddress(true);
+                    server.bind(new java.net.InetSocketAddress(bindAddress, port), 50);
                     activeServer = server;
                     
                     if (listener != null) {
@@ -62,7 +64,7 @@ public class TcpServer {
                     }
                 }
             } catch (Exception e) {
-                if (running) {
+                if (running && Thread.currentThread() == listenerThread) {
                     Log.e(TAG, "Error in TCP server", e);
                     if (listener != null) {
                         listener.onServerError(e);
