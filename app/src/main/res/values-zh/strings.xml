@@ -33,7 +33,7 @@
     <string name="telemetry_charging">充电中</string>
     <string name="telemetry_discharging">放电中</string>
     <string name="telemetry_ac_connected">已连接</string>
-    <string name="telemetry_ac_disconnected">已断开连接</string>
+    <string name="telemetry_ac_disconnected">已断开</string>
     
     <string name="main_header_telemetry">电池数据</string>
     <string name="main_header_logs">连接日志</string>
