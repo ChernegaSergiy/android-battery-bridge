@@ -31,15 +31,10 @@
     <string name="notif_text">TCP-сервер активний у фоновому режимі</string>
     <string name="toast_client_connected">Клієнт підключився: %s</string>
     <string name="toast_restarting">Перезапуск...</string>
-    <string name="main_title_active">PHP Battery Bridge активний</string>
-    <string name="main_info_server">TCP-сервер запущено на %1$s:%2$d.\nТепер ви можете закрити цей додаток.</string>
-    <string name="btn_restart_server">Перезапустити сервер</string>
-    <string name="main_title_stopped">Сервер зупинено</string>
     <string name="telemetry_charging">Заряджається</string>
     <string name="telemetry_discharging">Розряджається</string>
     <string name="telemetry_ac_connected">ПІДКЛЮЧЕНО</string>
     <string name="telemetry_ac_disconnected">ВІДКЛЮЧЕНО</string>
-    <string name="telemetry_format">Заряд: %1$d%% (%2$s)\nТемпература: %3$.1f°C\nСтан: Живлення від мережі: %4$s</string>
     <string name="log_format">Останнє підключення: %1$s (через %2$s)</string>
     <string name="log_no_data">Останнє підключення: Немає даних</string>
     

@@ -31,15 +31,10 @@
     <string name="notif_text">Le serveur TCP est actif en arrière-plan</string>
     <string name="toast_client_connected">Client connecté : %s</string>
     <string name="toast_restarting">Redémarrage...</string>
-    <string name="main_title_active">PHP Battery Bridge est actif</string>
-    <string name="main_info_server">Le serveur TCP est en cours d\'exécution sur %1$s:%2$d.\nVous pouvez maintenant fermer cette application.</string>
-    <string name="btn_restart_server">Redémarrer le serveur</string>
-    <string name="main_title_stopped">Le serveur est arrêté</string>
     <string name="telemetry_charging">En charge</string>
     <string name="telemetry_discharging">En décharge</string>
     <string name="telemetry_ac_connected">CONNECTÉ</string>
     <string name="telemetry_ac_disconnected">DÉCONNECTÉ</string>
-    <string name="telemetry_format">Charge : %1$d%% (%2$s)\nTempérature : %3$.1f°C\nStatut : Alimentation CA : %4$s</string>
     <string name="log_format">Dernière connexion : %1$s (via %2$s)</string>
     <string name="log_no_data">Dernière connexion : Aucune donnée</string>
     
