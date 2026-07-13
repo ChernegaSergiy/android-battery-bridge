@@ -35,6 +35,9 @@
     <string name="telemetry_ac_connected">CONNECTED</string>
     <string name="telemetry_ac_disconnected">DISCONNECTED</string>
     
+    <string name="switch_on" translatable="false">ON</string>
+    <string name="switch_off" translatable="false">OFF</string>
+    
     <string name="main_header_telemetry">BATTERY DATA</string>
     <string name="main_header_logs">CONNECTION LOGS</string>
     <string name="main_label_charge">Charge</string>
