@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
         batteryDataProvider = new BatteryDataProvider(this);
 
         statusObserver = new ServerStatusObserver(this, status -> {
-            boolean isOk = (status == ServerStatusObserver.STATUS_OK);
+            boolean isOk = ServerStatusObserver.STATUS_OK.equals(status);
             tvTitle.setText(isOk ? R.string.main_title_active : R.string.main_title_stopped);
             tvTitle.setTextColor(getResources().getColor(isOk ? android.R.color.holo_blue_light : android.R.color.holo_red_light));
             btnRestartServer.setEnabled(true);
