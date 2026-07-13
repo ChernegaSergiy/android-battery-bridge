@@ -31,7 +31,7 @@ public class BatteryService extends Service implements TcpServer.Listener {
         public void onReceive(Context context, Intent intent) {
             if (SettingsActivity.ACTION_SETTINGS_CHANGED.equals(intent.getAction())) {
                 String key = intent.getStringExtra(SettingsActivity.EXTRA_SETTING_KEY);
-                if ("pref_port".equals(key) || "pref_network_all".equals(key)) {
+                if ("pref_port".equals(key) || "pref_network_all".equals(key) || "pref_whitelist".equals(key)) {
                     Log.d(TAG, "Network preferences changed, restarting listener...");
                     startListener();
                 } else if ("pref_foreground".equals(key)) {
@@ -143,11 +143,12 @@ public class BatteryService extends Service implements TcpServer.Listener {
     private void startListener() {
         final int finalPort = settings.getPort();
         final boolean allInterfaces = settings.isListenAllInterfaces();
+        final java.util.List<String> allowedIps = settings.getAllowedIps();
         
         if (tcpServer == null) {
-            tcpServer = new TcpServer(finalPort, allInterfaces, this);
+            tcpServer = new TcpServer(finalPort, allInterfaces, allowedIps, this);
         } else {
-            tcpServer.updateConfig(finalPort, allInterfaces);
+            tcpServer.updateConfig(finalPort, allInterfaces, allowedIps);
         }
         tcpServer.start();
     }
@@ -199,6 +200,33 @@ public class BatteryService extends Service implements TcpServer.Listener {
                 android.widget.Toast.makeText(BatteryService.this, getString(R.string.toast_client_connected, clientIp), android.widget.Toast.LENGTH_SHORT).show();
             });
         }
+    }
+
+    @Override
+    public void onClientBlocked(String clientIp) {
+        String time = new java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.US).format(new java.util.Date());
+        android.content.SharedPreferences prefs = getSharedPreferences("logs", Context.MODE_PRIVATE);
+        String currentLogs = prefs.getString("console_output", "");
+        
+        String newLogLine = "[" + time + "] BLOCKED connection from " + clientIp;
+        
+        String[] lines = currentLogs.split("\n");
+        StringBuilder sb = new StringBuilder();
+        int start = Math.max(0, lines.length - 9);
+        if (!currentLogs.isEmpty()) {
+            for (int i = start; i < lines.length; i++) {
+                if (!lines[i].trim().isEmpty()) {
+                    sb.append(lines[i]).append("\n");
+                }
+            }
+        }
+        sb.append(newLogLine);
+        
+        prefs.edit().putString("console_output", sb.toString()).apply();
+        
+        Intent intent = new Intent("com.chernegasergiy.battery.ACTION_NEW_LOG");
+        intent.setPackage(getPackageName());
+        sendBroadcast(intent);
     }
 
     @Override

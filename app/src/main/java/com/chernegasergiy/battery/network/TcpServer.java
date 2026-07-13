@@ -14,24 +14,28 @@ public class TcpServer {
     
     private int port;
     private boolean allInterfaces;
+    private java.util.List<String> allowedIps;
     private final Listener listener;
 
     public interface Listener {
         void onServerStarted();
         void onServerError(Exception e);
         void onClientConnected(String clientIp);
+        void onClientBlocked(String clientIp);
         String onRequestData();
     }
 
-    public TcpServer(int port, boolean allInterfaces, Listener listener) {
+    public TcpServer(int port, boolean allInterfaces, java.util.List<String> allowedIps, Listener listener) {
         this.port = port;
         this.allInterfaces = allInterfaces;
+        this.allowedIps = allowedIps;
         this.listener = listener;
     }
 
-    public void updateConfig(int port, boolean allInterfaces) {
+    public void updateConfig(int port, boolean allInterfaces, java.util.List<String> allowedIps) {
         this.port = port;
         this.allInterfaces = allInterfaces;
+        this.allowedIps = allowedIps;
     }
 
     public void start() {
@@ -62,6 +66,17 @@ public class TcpServer {
                     while (running && !Thread.currentThread().isInterrupted()) {
                         try (Socket client = server.accept()) {
                             String clientIp = client.getInetAddress().getHostAddress();
+                            
+                            if (allowedIps != null && !allowedIps.isEmpty()) {
+                                if (!allowedIps.contains(clientIp)) {
+                                    Log.w(TAG, "Blocked connection from unauthorized IP: " + clientIp);
+                                    if (listener != null) {
+                                        listener.onClientBlocked(clientIp);
+                                    }
+                                    continue;
+                                }
+                            }
+                            
                             Log.d(TAG, "Client connected: " + clientIp);
                             
                             if (listener != null) {
