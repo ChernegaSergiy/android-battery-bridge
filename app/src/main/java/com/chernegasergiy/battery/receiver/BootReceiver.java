@@ -11,7 +11,12 @@ public class BootReceiver extends BroadcastReceiver {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             com.chernegasergiy.battery.data.SettingsRepository settings = new com.chernegasergiy.battery.data.SettingsRepository(context);
             if (settings.isAutostartEnabled()) {
-                context.startService(new Intent(context, BatteryService.class));
+                Intent serviceIntent = new Intent(context, BatteryService.class);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && settings.isForegroundEnabled()) {
+                    context.startForegroundService(serviceIntent);
+                } else {
+                    context.startService(serviceIntent);
+                }
             }
         }
     }
