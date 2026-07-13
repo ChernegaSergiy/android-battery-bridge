@@ -116,14 +116,8 @@ public class MainActivity extends Activity {
 
     private void updateLog() {
         android.content.SharedPreferences prefs = getSharedPreferences("logs", Context.MODE_PRIVATE);
-        String time = prefs.getString("last_log_time", null);
-        String ip = prefs.getString("last_log_ip", null);
-        
-        if (time == null || ip == null) {
-            tvLog.setText(R.string.log_no_data);
-        } else {
-            tvLog.setText(getString(R.string.log_format, time, ip));
-        }
+        String logs = prefs.getString("console_output", "> _");
+        tvLog.setText(logs);
     }
 
     @Override

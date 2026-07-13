@@ -163,10 +163,24 @@ public class BatteryService extends Service implements TcpServer.Listener {
     @Override
     public void onClientConnected(String clientIp) {
         String time = new java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.US).format(new java.util.Date());
-        android.content.SharedPreferences.Editor editor = getSharedPreferences("logs", Context.MODE_PRIVATE).edit();
-        editor.putString("last_log_time", time);
-        editor.putString("last_log_ip", clientIp);
-        editor.apply();
+        android.content.SharedPreferences prefs = getSharedPreferences("logs", Context.MODE_PRIVATE);
+        String currentLogs = prefs.getString("console_output", "");
+        
+        String newLogLine = "> [" + time + "] Connection from " + clientIp;
+        
+        String[] lines = currentLogs.split("\n");
+        StringBuilder sb = new StringBuilder();
+        int start = Math.max(0, lines.length - 9); // Keep up to 10 lines including the new one
+        if (!currentLogs.isEmpty()) {
+            for (int i = start; i < lines.length; i++) {
+                if (!lines[i].trim().isEmpty()) {
+                    sb.append(lines[i]).append("\n");
+                }
+            }
+        }
+        sb.append(newLogLine);
+        
+        prefs.edit().putString("console_output", sb.toString()).apply();
         
         Intent intent = new Intent("com.chernegasergiy.battery.ACTION_NEW_LOG");
         intent.setPackage(getPackageName());

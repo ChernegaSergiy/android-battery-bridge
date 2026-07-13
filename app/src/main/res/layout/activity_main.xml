@@ -108,12 +108,13 @@
             android:id="@+id/tvLog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Останнє підключення: 22:00:05 (через 127.0.0.1)"
+            android:minHeight="100dp"
+            android:text="> _"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:fontFamily="monospace"
-            android:textColor="#AAAAAA"
+            android:textColor="#00FF00"
             android:padding="12dp"
-            android:background="#111111"
+            android:background="#000000"
             android:layout_marginBottom="16dp" />
 
     </LinearLayout>
