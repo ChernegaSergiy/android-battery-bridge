@@ -10,7 +10,7 @@
 
     <application
         android:label="PHP Battery Bridge"
-        android:icon="@android:drawable/stat_sys_battery_100"
+        android:icon="@android:drawable/ic_menu_preferences"
         android:theme="@android:style/Theme.Holo">
 
         <activity android:name=".ui.MainActivity" android:exported="true">
