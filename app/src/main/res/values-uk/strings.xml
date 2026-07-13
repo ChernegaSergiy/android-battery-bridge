@@ -43,6 +43,12 @@
     <string name="log_format">Останнє підключення: %1$s (через %2$s)</string>
     <string name="log_no_data">Останнє підключення: Немає даних</string>
     
+    <string name="main_header_telemetry">ДАНІ АКУМУЛЯТОРА</string>
+    <string name="main_header_logs">ЛОГИ ПІДКЛЮЧЕННЯ</string>
+    <string name="main_label_charge">Заряд</string>
+    <string name="main_label_temperature">Температура</string>
+    <string name="main_label_ac_power">Живлення від мережі</string>
+    
     <string name="menu_about">Про додаток</string>
     <string name="menu_settings">Налаштування</string>
 </resources>

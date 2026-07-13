@@ -43,6 +43,12 @@
     <string name="log_format">Last connection: %1$s (via %2$s)</string>
     <string name="log_no_data">Last connection: No data</string>
     
+    <string name="main_header_telemetry">BATTERY DATA</string>
+    <string name="main_header_logs">CONNECTION LOGS</string>
+    <string name="main_label_charge">Charge</string>
+    <string name="main_label_temperature">Temperature</string>
+    <string name="main_label_ac_power">AC Power</string>
+    
     <string name="menu_about">About</string>
     <string name="menu_settings">Settings</string>
 </resources>
