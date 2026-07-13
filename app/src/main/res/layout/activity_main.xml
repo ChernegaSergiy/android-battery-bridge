@@ -1,62 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:fillViewport="true">
 
-    <!-- Status Block -->
-    <TextView
-        android:id="@+id/tvTitle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/main_title_active"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:fontFamily="sans-serif-light"
-        android:gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/main_info_server"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:gravity="center"
-        android:layout_marginBottom="32dp" />
+        <!-- Server Status Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="СТАТУС СЕРВЕРА"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+            
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_blue_light"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp" />
 
-    <!-- Control Element -->
-    <Button
-        android:id="@+id/btnRestartServer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/btn_restart_server"
-        android:layout_marginBottom="32dp" />
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/main_title_active"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:fontFamily="sans-serif-light"
+            android:textSize="28sp"
+            android:gravity="center"
+            android:layout_marginBottom="8dp" />
 
-    <!-- Divider -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@android:color/holo_blue_light"
-        android:layout_marginBottom="16dp" />
+        <TextView
+            android:id="@+id/tvInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/main_info_server"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:fontFamily="sans-serif"
+            android:textColor="#888888"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
 
-    <!-- Data and Logs Block -->
-    <TextView
-        android:id="@+id/tvTelemetry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Заряд: 85% (Розряджається)\nТемпература: 32.0°C\nСтан: Живлення від мережі: ВІДКЛЮЧЕНО"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:lineSpacingExtra="4dp"
-        android:layout_marginBottom="16dp" />
+        <Button
+            android:id="@+id/btnRestartServer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_restart_server"
+            android:fontFamily="sans-serif"
+            android:layout_marginBottom="32dp" />
 
-    <TextView
-        android:id="@+id/tvLog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Останнє підключення: 22:00:05 (через 127.0.0.1)"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        <!-- Telemetry Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ДАНІ АКУМУЛЯТОРА"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+            
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_blue_light"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvTelemetry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Заряд: 85% (Розряджається)\nТемпература: 32.0°C\nСтан: Живлення від мережі: ВІДКЛЮЧЕНО"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="8dp"
+            android:padding="12dp"
+            android:background="#F5F5F5"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Logs Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ЛОГИ ПІДКЛЮЧЕННЯ"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+            
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_blue_light"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:id="@+id/tvLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Останнє підключення: 22:00:05 (через 127.0.0.1)"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:fontFamily="monospace"
+            android:textColor="#666666"
+            android:padding="12dp"
+            android:background="#F5F5F5"
+            android:layout_marginBottom="16dp" />
+
+    </LinearLayout>
+</ScrollView>
