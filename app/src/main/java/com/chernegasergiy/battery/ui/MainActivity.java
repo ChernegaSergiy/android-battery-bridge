@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        sendBroadcast(new Intent(ServerStatusObserver.ACTION_REQUEST_STATUS));
+        sendBroadcast(new Intent(ServerStatusObserver.ACTION_REQUEST_STATUS).setPackage(getPackageName()));
         
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_BATTERY_CHANGED);

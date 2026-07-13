@@ -39,6 +39,7 @@ public class BatteryService extends Service implements TcpServer.Listener {
                     updateLocksState();
                 }
             } else if (com.chernegasergiy.battery.ui.ServerStatusObserver.ACTION_REQUEST_STATUS.equals(intent.getAction())) {
+                Log.d("BatteryService", "ACTION_REQUEST_STATUS received. tcpServer=" + tcpServer + ", isRunning=" + (tcpServer != null ? tcpServer.isRunning() : false));
                 if (tcpServer != null && tcpServer.isRunning()) {
                     onServerStarted();
                 } else {
@@ -146,6 +147,7 @@ public class BatteryService extends Service implements TcpServer.Listener {
     @Override
     public void onServerStarted() {
         Intent statusIntent = new Intent(com.chernegasergiy.battery.ui.ServerStatusObserver.ACTION_SERVER_STATUS);
+        statusIntent.setPackage(getPackageName());
         statusIntent.putExtra(com.chernegasergiy.battery.ui.ServerStatusObserver.EXTRA_STATUS, com.chernegasergiy.battery.ui.ServerStatusObserver.STATUS_OK);
         sendBroadcast(statusIntent);
     }
@@ -153,6 +155,7 @@ public class BatteryService extends Service implements TcpServer.Listener {
     @Override
     public void onServerError(Exception e) {
         Intent errIntent = new Intent(com.chernegasergiy.battery.ui.ServerStatusObserver.ACTION_SERVER_STATUS);
+        errIntent.setPackage(getPackageName());
         errIntent.putExtra(com.chernegasergiy.battery.ui.ServerStatusObserver.EXTRA_STATUS, com.chernegasergiy.battery.ui.ServerStatusObserver.STATUS_ERROR);
         sendBroadcast(errIntent);
     }
@@ -166,6 +169,7 @@ public class BatteryService extends Service implements TcpServer.Listener {
         editor.apply();
         
         Intent intent = new Intent("com.chernegasergiy.battery.ACTION_NEW_LOG");
+        intent.setPackage(getPackageName());
         sendBroadcast(intent);
 
         if (settings.isDebugToastsEnabled()) {

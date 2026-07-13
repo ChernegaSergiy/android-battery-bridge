@@ -105,6 +105,9 @@ public class TcpServer {
     }
 
     public boolean isRunning() {
-        return running && activeServer != null && !activeServer.isClosed();
+        return running && (
+            (activeServer != null && !activeServer.isClosed()) || 
+            (listenerThread != null && listenerThread.isAlive())
+        );
     }
 }
