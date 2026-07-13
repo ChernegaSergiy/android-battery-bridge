@@ -49,6 +49,7 @@
     <string name="main_label_temperature">Температура</string>
     <string name="main_label_ac_power">Живлення від мережі</string>
     
+    <string name="menu_server">Сервер</string>
     <string name="menu_about">Про додаток</string>
     <string name="menu_settings">Налаштування</string>
 </resources>

@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_toggle_server"
-        android:title="Server"
+        android:title="@string/menu_server"
         android:actionLayout="@layout/action_switch"
         android:showAsAction="always" />
 

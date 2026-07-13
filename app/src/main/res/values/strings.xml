@@ -49,6 +49,7 @@
     <string name="main_label_temperature">Temperature</string>
     <string name="main_label_ac_power">AC Power</string>
     
+    <string name="menu_server">Server</string>
     <string name="menu_about">About</string>
     <string name="menu_settings">Settings</string>
 </resources>
