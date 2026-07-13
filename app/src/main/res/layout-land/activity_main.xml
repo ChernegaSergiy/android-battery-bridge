@@ -67,7 +67,8 @@
                         android:text="@string/main_label_temperature"
                         android:textColor="?android:attr/textColorSecondary"
                         android:fontFamily="sans-serif-light"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:gravity="center" />
                     <TextView
                         android:id="@+id/tvTemp"
                         android:layout_width="wrap_content"
@@ -76,7 +77,8 @@
                         android:textColor="?android:attr/textColorPrimary"
                         android:fontFamily="sans-serif"
                         android:textSize="20sp"
-                        android:layout_marginTop="4dp" />
+                        android:layout_marginTop="4dp"
+                        android:gravity="center" />
                 </LinearLayout>
 
                 <View android:layout_width="1dp" android:layout_height="match_parent" android:background="#222222" />
@@ -93,7 +95,8 @@
                         android:text="@string/main_label_ac_power"
                         android:textColor="?android:attr/textColorSecondary"
                         android:fontFamily="sans-serif-light"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:gravity="center" />
                     <TextView
                         android:id="@+id/tvAcPower"
                         android:layout_width="wrap_content"
@@ -102,7 +105,8 @@
                         android:textColor="?android:attr/textColorPrimary"
                         android:fontFamily="sans-serif"
                         android:textSize="20sp"
-                        android:layout_marginTop="4dp" />
+                        android:layout_marginTop="4dp"
+                        android:gravity="center" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
