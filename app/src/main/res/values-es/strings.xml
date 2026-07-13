@@ -35,6 +35,13 @@
     <string name="telemetry_ac_connected">CONECTADO</string>
     <string name="telemetry_ac_disconnected">DESCONECTADO</string>
     
+    <string name="main_header_telemetry">DATOS DE BATERÍA</string>
+    <string name="main_header_logs">REGISTROS DE CONEXIÓN</string>
+    <string name="main_label_charge">Carga</string>
+    <string name="main_label_temperature">Temperatura</string>
+    <string name="main_label_ac_power">Alimentación CA</string>
+    <string name="menu_server">Servidor</string>
+    
     <string name="menu_about">Acerca de</string>
     <string name="menu_settings">Ajustes</string>
 </resources>

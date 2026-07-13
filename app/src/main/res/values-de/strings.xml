@@ -35,6 +35,13 @@
     <string name="telemetry_ac_connected">VERBUNDEN</string>
     <string name="telemetry_ac_disconnected">GETRENNT</string>
     
+    <string name="main_header_telemetry">AKKUDATEN</string>
+    <string name="main_header_logs">VERBINDUNGSPROTOKOLLE</string>
+    <string name="main_label_charge">Ladung</string>
+    <string name="main_label_temperature">Temperatur</string>
+    <string name="main_label_ac_power">Netzbetrieb</string>
+    <string name="menu_server">Server</string>
+    
     <string name="menu_about">Über</string>
     <string name="menu_settings">Einstellungen</string>
 </resources>
