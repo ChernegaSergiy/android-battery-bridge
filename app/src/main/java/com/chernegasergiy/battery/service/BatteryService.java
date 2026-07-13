@@ -17,6 +17,7 @@ import com.chernegasergiy.battery.ui.SettingsActivity;
 
 public class BatteryService extends Service implements TcpServer.Listener {
     private static final String TAG = "BatteryService";
+    public static boolean isServiceRunning = false;
 
     private com.chernegasergiy.battery.data.SettingsRepository settings;
     private com.chernegasergiy.battery.data.BatteryDataProvider batteryDataProvider;
@@ -53,6 +54,7 @@ public class BatteryService extends Service implements TcpServer.Listener {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "Service created");
+        isServiceRunning = true;
         settings = new com.chernegasergiy.battery.data.SettingsRepository(this);
         batteryDataProvider = new com.chernegasergiy.battery.data.BatteryDataProvider(this);
         notificationHelper = new NotificationHelper(this);
@@ -210,6 +212,7 @@ public class BatteryService extends Service implements TcpServer.Listener {
 
     @Override
     public void onDestroy() {
+        isServiceRunning = false;
         unregisterReceiver(settingsReceiver);
         onServerError(new Exception("Service stopped manually"));
         stopListener();

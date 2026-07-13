@@ -81,6 +81,12 @@ public class MainActivity extends Activity {
         super.onResume();
         sendBroadcast(new Intent(ServerStatusObserver.ACTION_REQUEST_STATUS).setPackage(getPackageName()));
         
+        if (switchServer != null) {
+            isProgrammaticChange = true;
+            switchServer.setChecked(com.chernegasergiy.battery.service.BatteryService.isServiceRunning);
+            isProgrammaticChange = false;
+        }
+
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_BATTERY_CHANGED);
         filter.addAction("com.chernegasergiy.battery.ACTION_NEW_LOG");
@@ -147,6 +153,10 @@ public class MainActivity extends Activity {
         if (toggleItem != null && toggleItem.getActionView() != null) {
             switchServer = toggleItem.getActionView().findViewById(R.id.switchServer);
             if (switchServer != null) {
+                isProgrammaticChange = true;
+                switchServer.setChecked(com.chernegasergiy.battery.service.BatteryService.isServiceRunning);
+                isProgrammaticChange = false;
+
                 switchServer.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     if (isProgrammaticChange) return;
                     
@@ -156,7 +166,7 @@ public class MainActivity extends Activity {
                         stopService(new Intent(MainActivity.this, BatteryService.class));
                     }
                 });
-                // Request current status to set the switch correctly
+                // Request current status to set the switch correctly (async fallback)
                 sendBroadcast(new Intent(ServerStatusObserver.ACTION_REQUEST_STATUS).setPackage(getPackageName()));
             }
         }
