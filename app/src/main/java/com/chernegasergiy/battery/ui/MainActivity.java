@@ -18,7 +18,9 @@ import com.chernegasergiy.battery.service.BatteryService;
 public class MainActivity extends Activity {
     private ServerStatusObserver statusObserver;
     private Button btnRestartServer;
-    private TextView tvTelemetry;
+    private TextView tvCharge;
+    private TextView tvTemp;
+    private TextView tvAcPower;
     private TextView tvLog;
     private BatteryDataProvider batteryDataProvider;
 
@@ -40,7 +42,9 @@ public class MainActivity extends Activity {
 
         TextView tvTitle = findViewById(R.id.tvTitle);
         btnRestartServer = findViewById(R.id.btnRestartServer);
-        tvTelemetry = findViewById(R.id.tvTelemetry);
+        tvCharge = findViewById(R.id.tvCharge);
+        tvTemp = findViewById(R.id.tvTemp);
+        tvAcPower = findViewById(R.id.tvAcPower);
         tvLog = findViewById(R.id.tvLog);
         batteryDataProvider = new BatteryDataProvider(this);
 
@@ -110,13 +114,16 @@ public class MainActivity extends Activity {
         String chargeState = getString(info.isCharging ? R.string.telemetry_charging : R.string.telemetry_discharging);
         String acPowerState = getString(info.isCharging ? R.string.telemetry_ac_connected : R.string.telemetry_ac_disconnected);
         
-        String telemetry = getString(R.string.telemetry_format, info.percent, chargeState, info.temperatureCelsius, acPowerState);
-        tvTelemetry.setText(telemetry);
+        if (tvCharge != null) {
+            tvCharge.setText(info.percent + "% (" + chargeState + ")");
+            tvTemp.setText(String.format(java.util.Locale.US, "%.1f°C", info.temperatureCelsius));
+            tvAcPower.setText(acPowerState);
+        }
     }
 
     private void updateLog() {
         android.content.SharedPreferences prefs = getSharedPreferences("logs", Context.MODE_PRIVATE);
-        String logs = prefs.getString("console_output", "> _");
+        String logs = prefs.getString("console_output", "");
         tvLog.setText(logs);
     }
 

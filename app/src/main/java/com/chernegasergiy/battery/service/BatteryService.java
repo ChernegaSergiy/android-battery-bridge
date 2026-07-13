@@ -166,7 +166,7 @@ public class BatteryService extends Service implements TcpServer.Listener {
         android.content.SharedPreferences prefs = getSharedPreferences("logs", Context.MODE_PRIVATE);
         String currentLogs = prefs.getString("console_output", "");
         
-        String newLogLine = "> [" + time + "] Connection from " + clientIp;
+        String newLogLine = "[" + time + "] Connection from " + clientIp;
         
         String[] lines = currentLogs.split("\n");
         StringBuilder sb = new StringBuilder();
