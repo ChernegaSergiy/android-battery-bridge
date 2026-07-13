@@ -42,4 +42,20 @@ public class SettingsRepository {
     public boolean isAutoStartOnAppLaunchEnabled() {
         return prefs.getBoolean("pref_autostart_app", false);
     }
+
+    public java.util.List<String> getAllowedIps() {
+        String whitelist = prefs.getString("pref_whitelist", "").trim();
+        if (whitelist.isEmpty()) {
+            return new java.util.ArrayList<>();
+        }
+        String[] ips = whitelist.split(",");
+        java.util.List<String> validIps = new java.util.ArrayList<>();
+        for (String ip : ips) {
+            String trimmed = ip.trim();
+            if (!trimmed.isEmpty()) {
+                validIps.add(trimmed);
+            }
+        }
+        return validIps;
+    }
 }
