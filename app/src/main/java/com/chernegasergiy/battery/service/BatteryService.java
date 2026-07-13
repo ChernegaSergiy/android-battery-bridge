@@ -132,12 +132,14 @@ public class BatteryService extends Service implements TcpServer.Listener {
     }
 
     private void startListener() {
-        stopListener();
-
         final int finalPort = settings.getPort();
         final boolean allInterfaces = settings.isListenAllInterfaces();
         
-        tcpServer = new TcpServer(finalPort, allInterfaces, this);
+        if (tcpServer == null) {
+            tcpServer = new TcpServer(finalPort, allInterfaces, this);
+        } else {
+            tcpServer.updateConfig(finalPort, allInterfaces);
+        }
         tcpServer.start();
     }
 

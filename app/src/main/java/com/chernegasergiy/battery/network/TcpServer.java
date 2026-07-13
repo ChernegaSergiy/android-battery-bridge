@@ -12,8 +12,8 @@ public class TcpServer {
     private ServerSocket activeServer;
     private boolean running = false;
     
-    private final int port;
-    private final boolean allInterfaces;
+    private int port;
+    private boolean allInterfaces;
     private final Listener listener;
 
     public interface Listener {
@@ -27,6 +27,11 @@ public class TcpServer {
         this.port = port;
         this.allInterfaces = allInterfaces;
         this.listener = listener;
+    }
+
+    public void updateConfig(int port, boolean allInterfaces) {
+        this.port = port;
+        this.allInterfaces = allInterfaces;
     }
 
     public void start() {

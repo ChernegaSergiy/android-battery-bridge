@@ -52,6 +52,7 @@ public class MainActivity extends Activity {
         });
 
         btnRestartServer.setOnClickListener(v -> {
+            btnRestartServer.setEnabled(false);
             startService(new Intent(this, BatteryService.class));
             android.widget.Toast.makeText(this, getString(R.string.toast_restarting), android.widget.Toast.LENGTH_SHORT).show();
         });
