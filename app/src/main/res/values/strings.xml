@@ -7,6 +7,9 @@
     <string name="pref_autostart_title">Start on Boot</string>
     <string name="pref_autostart_summary">Automatically start the background service when device boots</string>
     
+    <string name="pref_autostart_app_title">Start on App Launch</string>
+    <string name="pref_autostart_app_summary">Automatically start the server when opening the application</string>
+    
     <string name="pref_foreground_title">Persistent Notification</string>
     <string name="pref_foreground_summary">Run as a foreground service to prevent Android from killing it</string>
     

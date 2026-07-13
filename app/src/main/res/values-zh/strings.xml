@@ -4,8 +4,11 @@
     <string name="pref_port_title">TCP端口</string>
     <string name="pref_port_summary">TCP服务器的端口号 (默认: 8765)</string>
     
-    <string name="pref_autostart_title">开机启动</string>
-    <string name="pref_autostart_summary">设备启动时自动运行后台服务</string>
+    <string name="pref_autostart_title">开机自动启动</string>
+    <string name="pref_autostart_summary">设备启动时自动启动后台服务</string>
+    
+    <string name="pref_autostart_app_title">随应用启动</string>
+    <string name="pref_autostart_app_summary">打开应用时自动启动服务器</string>
     
     <string name="pref_foreground_title">持续通知</string>
     <string name="pref_foreground_summary">作为前台服务运行，防止被Android系统终止</string>

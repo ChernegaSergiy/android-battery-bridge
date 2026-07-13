@@ -4,8 +4,11 @@
     <string name="pref_port_title">TCP-порт</string>
     <string name="pref_port_summary">Номер порту для TCP-сервера (за замовчуванням: 8765)</string>
     
-    <string name="pref_autostart_title">Автозапуск</string>
+    <string name="pref_autostart_title">Автозапуск при увімкненні (Boot)</string>
     <string name="pref_autostart_summary">Автоматично запускати фонову службу під час увімкнення пристрою</string>
+    
+    <string name="pref_autostart_app_title">Автозапуск при відкритті</string>
+    <string name="pref_autostart_app_summary">Автоматично запускати сервер під час запуску додатка</string>
     
     <string name="pref_foreground_title">Постійне сповіщення (Foreground)</string>
     <string name="pref_foreground_summary">Запустити як пріоритетну службу, щоб Android не вбив процес</string>

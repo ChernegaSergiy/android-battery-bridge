@@ -4,8 +4,11 @@
     <string name="pref_port_title">Port TCP</string>
     <string name="pref_port_summary">Numer portu dla serwera TCP (domyślnie: 8765)</string>
     
-    <string name="pref_autostart_title">Uruchom przy starcie</string>
+    <string name="pref_autostart_title">Uruchom przy starcie systemu</string>
     <string name="pref_autostart_summary">Automatycznie uruchom usługę w tle po uruchomieniu urządzenia</string>
+    
+    <string name="pref_autostart_app_title">Uruchom z aplikacją</string>
+    <string name="pref_autostart_app_summary">Automatycznie uruchom serwer po otwarciu aplikacji</string>
     
     <string name="pref_foreground_title">Stałe powiadomienie</string>
     <string name="pref_foreground_summary">Uruchom jako usługę pierwszoplanową, aby zapobiec jej zabiciu przez Androida</string>

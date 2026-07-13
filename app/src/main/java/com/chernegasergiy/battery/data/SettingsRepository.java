@@ -38,4 +38,8 @@ public class SettingsRepository {
     public boolean isForegroundEnabled() {
         return prefs.getBoolean("pref_foreground", false);
     }
+    
+    public boolean isAutoStartOnAppLaunchEnabled() {
+        return prefs.getBoolean("pref_autostart_app", false);
+    }
 }

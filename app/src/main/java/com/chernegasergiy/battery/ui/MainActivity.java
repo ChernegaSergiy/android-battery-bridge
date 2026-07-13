@@ -61,6 +61,13 @@ public class MainActivity extends Activity {
                 isProgrammaticChange = false;
             }
         });
+
+        if (savedInstanceState == null) {
+            com.chernegasergiy.battery.data.SettingsRepository settings = new com.chernegasergiy.battery.data.SettingsRepository(this);
+            if (settings.isAutoStartOnAppLaunchEnabled()) {
+                startService(new Intent(this, BatteryService.class));
+            }
+        }
     }
 
     @Override

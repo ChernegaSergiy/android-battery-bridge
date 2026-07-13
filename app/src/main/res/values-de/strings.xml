@@ -5,7 +5,10 @@
     <string name="pref_port_summary">Portnummer für den TCP-Server (Standard: 8765)</string>
     
     <string name="pref_autostart_title">Beim Booten starten</string>
-    <string name="pref_autostart_summary">Hintergrunddienst beim Gerätestart automatisch ausführen</string>
+    <string name="pref_autostart_summary">Hintergrunddienst beim Gerätestart automatisch starten</string>
+    
+    <string name="pref_autostart_app_title">Mit der App starten</string>
+    <string name="pref_autostart_app_summary">Server beim Öffnen der Anwendung automatisch starten</string>
     
     <string name="pref_foreground_title">Dauerhafte Benachrichtigung</string>
     <string name="pref_foreground_summary">Als Vordergrunddienst ausführen, damit Android ihn nicht beendet</string>

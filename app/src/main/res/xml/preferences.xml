@@ -24,6 +24,12 @@
             android:defaultValue="false" />
 
         <CheckBoxPreference
+            android:key="pref_autostart_app"
+            android:title="@string/pref_autostart_app_title"
+            android:summary="@string/pref_autostart_app_summary"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
             android:key="pref_foreground"
             android:title="@string/pref_foreground_title"
             android:summary="@string/pref_foreground_summary"
