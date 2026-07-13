@@ -118,6 +118,12 @@ public class BatteryService extends Service implements TcpServer.Listener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent != null && "ACTION_STOP_SERVICE".equals(intent.getAction())) {
+            Log.d(TAG, "Stop service requested from notification");
+            stopSelf();
+            return Service.START_NOT_STICKY;
+        }
+
         Log.d(TAG, "Service started");
         updateForegroundState();
         updateLocksState();
@@ -205,6 +211,7 @@ public class BatteryService extends Service implements TcpServer.Listener {
     @Override
     public void onDestroy() {
         unregisterReceiver(settingsReceiver);
+        onServerError(new Exception("Service stopped manually"));
         stopListener();
         releaseLocks();
         super.onDestroy();

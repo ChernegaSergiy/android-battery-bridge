@@ -44,6 +44,25 @@ public class NotificationHelper {
             builder.setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE);
         }
 
+        android.content.Intent stopIntent = new android.content.Intent(context, com.chernegasergiy.battery.service.BatteryService.class);
+        stopIntent.setAction("ACTION_STOP_SERVICE");
+        int flags = android.app.PendingIntent.FLAG_UPDATE_CURRENT;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            flags |= android.app.PendingIntent.FLAG_IMMUTABLE;
+        }
+        android.app.PendingIntent stopPendingIntent = android.app.PendingIntent.getService(context, 0, stopIntent, flags);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Notification.Action stopAction = new Notification.Action.Builder(
+                    android.graphics.drawable.Icon.createWithResource(context, android.R.drawable.ic_menu_close_clear_cancel),
+                    context.getString(R.string.action_stop_server),
+                    stopPendingIntent
+            ).build();
+            builder.addAction(stopAction);
+        } else {
+            builder.addAction(android.R.drawable.ic_menu_close_clear_cancel, context.getString(R.string.action_stop_server), stopPendingIntent);
+        }
+
         return builder
                 .setContentTitle(context.getString(R.string.notif_title))
                 .setContentText(context.getString(R.string.notif_text))

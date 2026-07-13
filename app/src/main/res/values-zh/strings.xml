@@ -32,6 +32,7 @@
     <string name="notif_channel_name">后台服务</string>
     <string name="notif_title">Battery Bridge 正在运行</string>
     <string name="notif_text">TCP服务器正在后台运行</string>
+    <string name="action_stop_server">停止</string>
     <string name="toast_client_connected">客户端已连接: %s</string>
     <string name="telemetry_charging">充电中</string>
     <string name="telemetry_discharging">放电中</string>

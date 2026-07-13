@@ -32,6 +32,7 @@
     <string name="notif_channel_name">Service en arrière-plan</string>
     <string name="notif_title">Battery Bridge est en cours d\'exécution</string>
     <string name="notif_text">Le serveur TCP est actif en arrière-plan</string>
+    <string name="action_stop_server">Arrêter</string>
     <string name="toast_client_connected">Client connecté : %s</string>
     <string name="telemetry_charging">En charge</string>
     <string name="telemetry_discharging">En décharge</string>
