@@ -52,7 +52,7 @@ Response JSON:
 |-------|-------------|
 | `l` | Battery level (0-100) |
 | `c` | Charging status (1/0) |
-| `h` | Health status |
+| `h` | Health status (Android constants: 1=Unknown, 2=Good, 3=Overheat, 4=Dead, 5=Over Voltage, 6=Failure, 7=Cold) |
 | `t` | Temperature (tenths of degree Celsius) |
 | `v` | Voltage (mV) |
 | `tech` | Battery technology string |
