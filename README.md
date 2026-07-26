@@ -31,13 +31,17 @@ This implements a direct TCP Server approach:
   - **NotificationHelper** — manages foreground service notifications
 - **service**
   - **BatteryService** — background orchestrator that binds the server and data provider
+  - **BatteryTileService** — Quick Settings Tile implementation
 - **network**
   - **TcpServer** — pure socket logic that accepts client connections
 - **data**
   - **BatteryDataProvider** — extracts and formats battery telemetry
+  - **BatteryInfo** — data model class for battery telemetry
   - **SettingsRepository** — encapsulates `SharedPreferences` access
 - **receiver**
   - **BootReceiver** — automatically starts the service on device boot
+- **utils**
+  - **NetworkUtils** — helper for IP validation and parsing
 
 ## IPC Protocol
 
